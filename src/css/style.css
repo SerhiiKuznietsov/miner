@@ -1,0 +1,79 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  width: 100%;
+  height: 100%;
+  background-color: #424242;
+}
+
+.container {
+  max-width: 1180px;
+  margin: auto;
+  padding-top: 180px;
+}
+
+.miner {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin: 0 auto;
+  overflow-x: auto;
+}
+
+.miner__header {
+  flex: content 1 1;
+  padding-top: 30px;
+  display: flex;
+  height: 100px;
+  background: #b3b3b3;
+  margin: auto;
+}
+
+.miner__face > span {
+  display: block;
+  width: 40px;
+  height: 40px;
+  background: url("../img/face_unpressed.svg") no-repeat;
+  background-size: 100%;
+  margin: auto;
+}
+
+.miner__count,
+.miner__face,
+.miner__timer {
+  flex: 1 1 30.33333%;
+}
+
+.miner__count > span,
+.miner__timer > span {
+  display: block;
+  width: 60px;
+  height: 40px;
+  background-color: #000;
+  color: #ff0000;
+  margin: auto;
+  text-align: center;
+  line-height: 40px;
+  font-size: 24px;
+}
+
+.miner__face span:active {
+  background: url("../img/face_pressed.svg");
+  background-size: 100%;
+}
+
+.miner__body {
+  flex: content 1 1;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.miner__cube {
+  background-color: #c0c0c0;
+  background: url("../img/closed.svg");
+  background-size: 100%;
+}
