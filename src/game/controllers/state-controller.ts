@@ -1,6 +1,5 @@
 import { TailState } from "../states/state";
-import { StateName, StateNamesList } from "../states/type/type";
-import { StateList } from "./type/type";
+import { StateList, StateName, StateNamesList } from "../states/type/type";
 
 export class StateController {
   private _state = new Map<StateName, TailState>();

@@ -1,3 +1,7 @@
+import { FaceView } from "../view/face";
+
+
+
 export class Face {
   private _element: HTMLSpanElement = document.querySelector(
     ".miner__face span"
@@ -28,18 +32,18 @@ export class Face {
   }
 
   private pressed() {
-    this._element.style.backgroundImage = "url(./src/img/face_pressed.svg)";
+    FaceView.setPressed(this._element);
   }
 
   public unpressed(): void {
-    this._element.style.backgroundImage = "url(./src/img/face_unpressed.svg)";
+    FaceView.setUnpressed(this._element);
   }
 
   public win(): void {
-    this._element.style.backgroundImage = "url(./src/img/face_win.svg)";
+    FaceView.setWin(this._element)
   }
 
   public lose(): void {
-    this._element.style.backgroundImage = `url(./src/img/face_lose.svg)`;
+    FaceView.setLose(this._element)
   }
 }

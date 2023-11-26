@@ -13,7 +13,7 @@ export abstract class TailState {
 
   public abstract draw(element: any): void;
 
-  private get(actionName: ActionName): StateName {
+  protected get(actionName: ActionName): StateName {
     const newStateName = this._actions.get(actionName);
 
     if (!newStateName) {
@@ -31,13 +31,13 @@ export abstract class TailState {
     return this.get(action.name);
   }
 
-  private addActionsList(list?: ActionList): void {
+  protected addActionsList(list?: ActionList): void {
     list?.forEach(([actionName, stateName]) => {
       this.addActionItem(actionName, stateName);
     });
   }
 
-  private addActionItem(actionName: ActionName, stateName: StateName) {
+  protected addActionItem(actionName: ActionName, stateName: StateName) {
     if (this._actions.has(actionName)) {
       throw new Error(`Not unique action name: ${actionName}`);
     }

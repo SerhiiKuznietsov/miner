@@ -1,6 +1,6 @@
 import { ActionName } from "../../actions/type/type";
+import { TailState } from "../state";
 
-export type ActionList = Array<[ActionName, StateName]>;
 export enum StateNamesList {
   startState = "startState",
   closeState = "closeState",
@@ -12,6 +12,8 @@ export enum StateNamesList {
   emptyState = "emptyState",
 }
 
+export type StateList = Array<TailState>;
+export type ActionList = Array<[ActionName, StateName]>;
 export type StateName =
   | StateNamesList.startState
   | StateNamesList.closeState
