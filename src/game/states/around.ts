@@ -1,12 +1,12 @@
-import { StateNames } from "../config/state";
 import { MineView } from "../view/mine";
-import { ActionList, TailState } from "./state";
+import { TailState } from "./state";
+import { ActionList, StateNamesList } from "./type/type";
 
 export class AroundState extends TailState {
   private _around: number;
 
   constructor(around: number, list?: ActionList) {
-    super(StateNames.aroundState, list);
+    super(StateNamesList.aroundState, list);
     this._around = around;
   }
 

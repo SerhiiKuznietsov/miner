@@ -1,10 +1,10 @@
-import { StateNames } from "../config/state";
 import { MineView } from "../view/mine";
-import { ActionList, TailState } from "./state";
+import { TailState } from "./state";
+import { ActionList, StateNamesList } from "./type/type";
 
 export class RedMineState extends TailState {
   constructor(list?: ActionList) {
-    super(StateNames.redMineState, list);
+    super(StateNamesList.redMineState, list);
   }
 
   public draw(element: any): void {

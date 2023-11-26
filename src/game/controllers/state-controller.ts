@@ -1,10 +1,10 @@
-import { StateNames } from "../config/state";
 import { TailState } from "../states/state";
+import { StateName, StateNamesList } from "../states/type/type";
 import { StateList } from "./type/type";
 
 export class StateController {
-  private _state = new Map<string, TailState>();
-  private _activeState: string = StateNames.closeState;
+  private _state = new Map<StateName, TailState>();
+  private _activeState: StateName = StateNamesList.closeState;
 
   constructor(stateList: StateList) {
     stateList.forEach((state) => {
@@ -12,11 +12,11 @@ export class StateController {
     });
   }
 
-  private has(stateName: string): boolean {
+  private has(stateName: StateName): boolean {
     return this._state.has(stateName);
   }
 
-  public change(stateName: string, element: Element): string {
+  public change(stateName: StateName, element: Element): StateName {
     if (!this.has(stateName)) {
       throw new Error(`State with name ${stateName} not found`);
     }

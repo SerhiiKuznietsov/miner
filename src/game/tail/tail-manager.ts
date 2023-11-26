@@ -1,8 +1,8 @@
 import { Action, CalcAction } from "../actions/actions";
 import { Config } from "../config/game";
-import { StateNames } from "../config/state";
 import { GameController } from "../game-controller";
 import { MatrixGenerateContent } from "../matrix/type/type";
+import { StateNamesList } from "../states/type/type";
 import { Id } from "../utils/id";
 import { Tail } from "./tail";
 
@@ -44,7 +44,7 @@ export class TailManager {
   public useActionById(x: number, y: number, action: Action): void {
     const newState = this.get(x, y).useAction(action);
 
-    if (newState === StateNames.redMineState) {
+    if (newState === StateNamesList.redMineState) {
       this._gameController.useLose();
     }
 
@@ -57,13 +57,13 @@ export class TailManager {
 
   private openAround(x: number, y: number, newState: string | undefined): void {
     if (
-      newState === StateNames.emptyState ||
-      newState === StateNames.aroundState
+      newState === StateNamesList.emptyState ||
+      newState === StateNamesList.aroundState
     ) {
       this._openField++;
     }
 
-    if (newState !== StateNames.emptyState) return;
+    if (newState !== StateNamesList.emptyState) return;
 
     for (let i = x > 0 ? x - 1 : x; i <= x + 1 && i < this._config.cols; i++) {
       for (

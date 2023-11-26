@@ -1,39 +1,39 @@
-import { ActionNames } from "../config/action";
+import { ActionNamesList } from "./type/type";
 
 export class Action {
-  readonly name: string;
+  readonly name: ActionName;
 
-  constructor(name: string) {
+  constructor(name: ActionName) {
     this.name = name;
   }
 }
 
 export class RightClickAction extends Action {
   constructor() {
-    super(ActionNames.rightClick);
+    super(ActionNamesList.rightClick);
   }
 }
 
 export class LeftClickAction extends Action {
   constructor() {
-    super(ActionNames.leftClick);
+    super(ActionNamesList.leftClick);
   }
 }
 
 export class LoseAction extends Action {
   constructor() {
-    super(ActionNames.lose);
+    super(ActionNamesList.lose);
   }
 }
 
 export class WinAction extends Action {
   constructor() {
-    super(ActionNames.win);
+    super(ActionNamesList.win);
   }
 }
 
 export class CalcAction extends Action {
   constructor() {
-    super(ActionNames.calc);
+    super(ActionNamesList.calc);
   }
 }

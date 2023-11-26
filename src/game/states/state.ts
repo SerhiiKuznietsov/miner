@@ -1,41 +1,47 @@
 import { Action } from "../actions/actions";
-
-export type ActionList = Array<[string, string]>;
+import { ActionName } from "../actions/type/type";
+import { ActionList, StateName } from "./type/type";
 
 export abstract class TailState {
-  public readonly name: string;
-  protected _actions = new Map<string, string>();
+  public readonly name: StateName;
+  protected _actions = new Map<ActionName, StateName>();
 
-  constructor(name: string, list?: ActionList) {
+  constructor(name: StateName, list?: ActionList) {
     this.name = name;
-    list?.forEach(([actionName, stateName]) => {
-      this.addAction(actionName, stateName);
-    });
+    this.addActionsList(list);
   }
 
   public abstract draw(element: any): void;
 
-  public useAction(action: Action): string | undefined {
-    if (!this._actions.has(action.name)) return;
-
-    const newStateName = this._actions.get(action.name);
+  private get(actionName: ActionName): StateName {
+    const newStateName = this._actions.get(actionName);
 
     if (!newStateName) {
       throw new Error(
-        `State name with action name: ${action.name} is undefined`
+        `State name with action name: ${actionName} is undefined`
       );
     }
 
     return newStateName;
   }
 
-  private addAction(actionName: string, stateName: string): TailState {
+  public useAction(action: Action): StateName | undefined {
+    if (!this._actions.has(action.name)) return;
+
+    return this.get(action.name);
+  }
+
+  private addActionsList(list?: ActionList): void {
+    list?.forEach(([actionName, stateName]) => {
+      this.addActionItem(actionName, stateName);
+    });
+  }
+
+  private addActionItem(actionName: ActionName, stateName: StateName) {
     if (this._actions.has(actionName)) {
       throw new Error(`Not unique action name: ${actionName}`);
     }
 
     this._actions.set(actionName, stateName);
-
-    return this;
   }
 }
