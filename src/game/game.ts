@@ -6,7 +6,7 @@ import { GameController } from "./game-controller";
 import { Vector2 } from "./geometry/vector2";
 import { Matrix } from "./matrix/matrix";
 import { TailManager } from "./tail/tail-manager";
-import { getDatasetWithEventTarget } from "./utils/event/click";
+import { getAttrsWithEvent } from "./utils/event/click";
 
 export class Game {
   private _config = new Config();
@@ -21,8 +21,8 @@ export class Game {
 
   public start() {
     this._field.init();
-    this._field.on("click", this.userClickHandler.bind(this));
-    this._field.on("contextmenu", this.userClickHandler.bind(this));
+    this._field.on("click", this.leftClickHandler.bind(this));
+    this._field.on("contextmenu", this.rightClickHandler.bind(this));
 
     this._face.init();
     this._isFirstClick = true;
@@ -39,14 +39,20 @@ export class Game {
     this._face.lose();
   }
 
-  private userClickHandler(e: Event): void {
+  private leftClickHandler(e: Event): void {
+    this.userClickHandler(e, new LeftClickAction());
+  }
+
+  private rightClickHandler(e: Event): void {
+    this.userClickHandler(e, new RightClickAction());
+  }
+
+  private userClickHandler(e: Event, action: Action): void {
     e.preventDefault();
 
     const [x, y] = getAttrsWithEvent(e);
 
     this.checkFirstClick(x, y);
-
-    const action = getClickEvent(e.type);
 
     this._tailManager.useActionById(x, y, action);
   }
@@ -60,24 +66,3 @@ export class Game {
     this._isFirstClick = false;
   }
 }
-
-const getClickEvent = (clickType: string): Action => {
-  return clickType === "click" ? new LeftClickAction() : new RightClickAction();
-};
-
-const getDatasetAttrs = (dataset: DOMStringMap): [number, number] => {
-  if (!dataset.x || !dataset.y) {
-    throw new Error("Element dataset attrs is empty");
-  }
-
-  const x: number = +dataset.x;
-  const y: number = +dataset.y;
-
-  return [x, y];
-};
-
-const getAttrsWithEvent = (e: Event): [number, number] => {
-  const dataset = getDatasetWithEventTarget(e);
-
-  return getDatasetAttrs(dataset);
-};

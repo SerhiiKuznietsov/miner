@@ -1,4 +1,4 @@
-import { ActionNamesList } from "./type/type";
+import { ActionName, ActionNamesList } from "./type/type";
 
 export class Action {
   readonly name: ActionName;
