@@ -1,4 +1,4 @@
-import { getDatasetWithElement } from "../element";
+import { getDatasetWithElement } from "./element";
 
 const getTargetElement = (e: Event): HTMLElement => {
   const target = <HTMLElement>e.target;
@@ -17,20 +17,15 @@ const getDatasetWithEventTarget = (e: Event): DOMStringMap => {
   return dataset;
 };
 
-
-const getDatasetAttrs = (dataset: DOMStringMap): [number, number] => {
-  if (!dataset.x || !dataset.y) {
-    throw new Error("Element dataset attrs is empty");
+const getDatasetId = (dataset: DOMStringMap): string => {
+  if (!dataset.id) {
+    throw new Error(`Element dataset attr with name "id" not found`);
   }
-
-  const x: number = +dataset.x;
-  const y: number = +dataset.y;
-
-  return [x, y];
+  return dataset.id;
 };
 
-export const getAttrsWithEvent = (e: Event): [number, number] => {
+export const getAttrsWithEvent = (e: Event): string => {
   const dataset = getDatasetWithEventTarget(e);
 
-  return getDatasetAttrs(dataset);
+  return getDatasetId(dataset);
 };

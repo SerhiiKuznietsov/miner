@@ -1,4 +1,6 @@
 import { Config } from "../config/game";
+import { createId } from "../utils/id";
+import { CellController } from "./cellController";
 import { createFieldCell } from "./utils/createCell";
 
 export class Field {
@@ -9,20 +11,23 @@ export class Field {
     ".miner"
   ) as HTMLDivElement;
   private _config: Config;
+  private _cellController: CellController;
 
   constructor(config: Config) {
     this._config = config;
+    this._cellController = new CellController(config);
   }
 
   public init(): void {
     this.clear();
     this.resize();
+    this._cellController.init(this._body);
     this.createCells();
   }
 
   public getCell = (x: number, y: number): HTMLDivElement => {
     const cell = this._body.querySelector(
-      `.miner__cube[data-y="${y}"][data-x="${x}"]`
+      `.miner__cube[data-id="${createId(x, y)}"]`
     ) as HTMLDivElement;
 
     if (!cell) {

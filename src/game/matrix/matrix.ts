@@ -7,7 +7,7 @@ import {
   SpawnerAroundTailState,
   EmptyTailStateSpawner,
 } from "../spawners";
-import { Id } from "../utils/id";
+import { createId } from "../utils/id";
 import { MatrixMineAroundEnricher } from "./enrichers/around";
 import { MatrixMineEnricher } from "./enrichers/mine";
 import { MatrixItem } from "./matrix-item";
@@ -63,7 +63,7 @@ export class Matrix {
       }
 
       const cell = field.getCell(x, y);
-      const id = Id.create(x, y);
+      const id = createId(x, y);
       const newMatrixItem = new MatrixItem(x, y, id, cell);
       this._list.set(id, newMatrixItem);
 
@@ -84,7 +84,7 @@ export class Matrix {
   }
 
   private getItem(x: number, y: number): MatrixItem {
-    const id = Id.create(x, y);
+    const id = createId(x, y);
 
     const item = this._list.get(id);
 

@@ -1,26 +1,27 @@
+import { gameObserver } from "../observable/game";
 import { FaceView } from "../view/face";
-
-
 
 export class Face {
   private _element: HTMLSpanElement = document.querySelector(
     ".miner__face span"
   ) as HTMLSpanElement;
-  private _gameStarter: Function;
 
-  constructor(gameStarter: Function) {
-    this._gameStarter = gameStarter;
-
+  constructor() {
     this._element.addEventListener(
       "mousedown",
       this.mouseDownHandler.bind(this)
     );
     this._element.addEventListener("mouseup", this.mouseUpHandler.bind(this));
+
+    gameObserver
+      .attach("start", this.unpressed.bind(this))
+      .attach("win", this.win.bind(this))
+      .attach("lose", this.lose.bind(this));
   }
 
   private mouseDownHandler() {
     this.pressed();
-    this._gameStarter();
+    gameObserver.notify("start");
   }
 
   private mouseUpHandler() {
@@ -40,10 +41,10 @@ export class Face {
   }
 
   public win(): void {
-    FaceView.setWin(this._element)
+    FaceView.setWin(this._element);
   }
 
   public lose(): void {
-    FaceView.setLose(this._element)
+    FaceView.setLose(this._element);
   }
 }

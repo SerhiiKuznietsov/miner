@@ -1,24 +1,22 @@
 import { Action, CalcAction } from "../actions/actions";
 import { Config } from "../config/game";
-import { GameController } from "../game-controller";
 import { MatrixGenerateContent } from "../matrix/type/type";
+import { gameObserver } from "../observable/game";
 import { StateNamesList } from "../states/type/type";
-import { Id } from "../utils/id";
+import { createId, parseId } from "../utils/id";
 import { Tail } from "./tail";
 
 export class TailManager {
   private _tails = new Map<string, Tail>();
   private _config: Config;
   private _openField: number = 0;
-  private _gameController: GameController;
 
-  constructor(config: Config, gameController: GameController) {
+  constructor(config: Config) {
     this._config = config;
-    this._gameController = gameController;
   }
 
   private get(x: number, y: number): Tail {
-    const tail = this._tails.get(Id.create(x, y));
+    const tail = this._tails.get(createId(x, y));
 
     if (!tail) {
       throw new Error(`Tail with x: ${x} y: ${y} not found`);
@@ -41,17 +39,20 @@ export class TailManager {
     });
   }
 
-  public useActionById(x: number, y: number, action: Action): void {
+  public useActionById(id: string, action: Action): void {
+    const [x, y] = parseId(id);
+
+
     const newState = this.get(x, y).useAction(action);
 
     if (newState === StateNamesList.redMineState) {
-      this._gameController.useLose();
+      gameObserver.notify("lose");
     }
 
     this.openAround(x, y, newState);
 
     if (this._openField === this._config.needToOpen) {
-      this._gameController.useWin();
+      gameObserver.notify("win");
     }
   }
 
