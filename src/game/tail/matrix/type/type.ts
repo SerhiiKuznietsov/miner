@@ -1,4 +1,4 @@
-import { StateController } from "../../controllers/state-controller";
+import { StateController } from "../../../controllers/state-controller";
 import { MatrixItem } from "../matrix-item";
 
 export type MatrixGenerateContent = Array<

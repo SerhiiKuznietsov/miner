@@ -1,5 +1,5 @@
-import { Config } from "../../config/game";
-import { range } from "../../utils/random";
+import { Config } from "../../../config/game";
+import { range } from "../../../utils/random";
 import { MatrixItemGetter } from "../type/type";
 
 export const useMatrixMineEnricher = (

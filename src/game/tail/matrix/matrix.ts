@@ -1,12 +1,12 @@
-import { Config } from "../config/game";
-import { StateController } from "../controllers/state-controller";
-import { Vector2 } from "../geometry/vector2";
+import { Config } from "../../config/game";
+import { StateController } from "../../controllers/state-controller";
+import { Vector2 } from "../../geometry/vector2";
 import {
   spawnAroundTailState,
   spawnEmptyTailState,
   spawnMineTailState,
-} from "../states/spawners";
-import { createId } from "../utils/id";
+} from "../../states/spawners";
+import { createId } from "../../utils/id";
 import { useMatrixMineAroundEnricher } from "./enrichers/around";
 import { useMatrixMineEnricher } from "./enrichers/mine";
 import { MatrixItem } from "./matrix-item";

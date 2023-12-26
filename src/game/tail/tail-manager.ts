@@ -1,7 +1,7 @@
 import { ActionName, ActionNamesList } from "../actions/actions";
 import { Config } from "../config/game";
 import { Vector2 } from "../geometry/vector2";
-import { Matrix } from "../matrix/matrix";
+import { Matrix } from "./matrix/matrix";
 import { gameObserver } from "../observable/game";
 import { StateNamesList } from "../states/type/type";
 import { createId, parseId } from "../utils/id";
