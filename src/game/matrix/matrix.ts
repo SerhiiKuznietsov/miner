@@ -5,7 +5,7 @@ import {
   spawnAroundTailState,
   spawnEmptyTailState,
   spawnMineTailState,
-} from "../spawners";
+} from "../states/spawners";
 import { createId } from "../utils/id";
 import { useMatrixMineAroundEnricher } from "./enrichers/around";
 import { useMatrixMineEnricher } from "./enrichers/mine";

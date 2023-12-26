@@ -1,4 +1,3 @@
-import { CalcAction } from "../actions/actions";
 import { ActionName, ActionNamesList } from "../actions/actions";
 import { Config } from "../config/game";
 import { Vector2 } from "../geometry/vector2";
