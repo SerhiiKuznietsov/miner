@@ -9,14 +9,11 @@ import { TailManager } from "./tail/tail-manager";
 import { getAttrsWithEvent } from "./utils/html/click";
 import { parseId } from "./utils/id";
 
-
-
 // export class Screen {
 //   private _field = new Field(this._config);
 //   private _face = new Face();
 
 // }
-
 
 export class Game {
   private _config = new Config();
@@ -41,17 +38,13 @@ export class Game {
     this._face.init();
     this._isFirstClick = true;
 
-    this._matrix.init(this._field);
+    this._matrix.init();
     this._tailManager.init(this._matrix.tailSpawner());
   }
 
-  private win(): void {
+  private win(): void {}
 
-  }
-
-  private lose(): void {
-
-  }
+  private lose(): void {}
 
   private leftClickHandler(e: Event): void {
     this.userClickHandler(e, new LeftClickAction());
@@ -76,7 +69,7 @@ export class Game {
 
     const [x, y] = parseId(id);
 
-    this._matrix.init(this._field, new Vector2(x, y));
+    this._matrix.init(new Vector2(x, y));
 
     this._tailManager.init(this._matrix.tailSpawner());
     this._isFirstClick = false;

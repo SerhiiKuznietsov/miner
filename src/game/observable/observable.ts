@@ -2,8 +2,6 @@ export type ObserverType = Function;
 
 export type ObserversList = Set<ObserverType>;
 
-// export type EventNameType = "win" | "lose";
-
 export class Observable<E, D> {
   private observers = new Map<E, ObserversList>();
 

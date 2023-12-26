@@ -15,14 +15,12 @@ export class StateController {
     return this._state.has(stateName);
   }
 
-  public change(stateName: StateName, element: Element): StateName {
+  public change(stateName: StateName): StateName {
     if (!this.has(stateName)) {
       throw new Error(`State with name ${stateName} not found`);
     }
 
     this._activeState = stateName;
-
-    this.getActive().draw(element);
 
     return stateName;
   }

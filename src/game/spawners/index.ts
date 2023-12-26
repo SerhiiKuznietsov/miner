@@ -33,13 +33,6 @@ export class EmptyTailStateSpawner extends Spawner {
 }
 
 export class SpawnerAroundTailState extends Spawner {
-  private _around: number;
-
-  constructor(around: number) {
-    super();
-    this._around = around;
-  }
-
   public spawn(): StateController {
     return new StateController([
       new CloseState([
@@ -53,7 +46,7 @@ export class SpawnerAroundTailState extends Spawner {
         [ActionNamesList.lose, StateNamesList.falseFlagState],
       ]),
       new FalseFlagState(),
-      new AroundState(this._around),
+      new AroundState(),
     ]);
   }
 }

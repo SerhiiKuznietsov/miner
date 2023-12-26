@@ -11,8 +11,6 @@ export abstract class TailState {
     this.addActionsList(list);
   }
 
-  public abstract draw(element: any): void;
-
   protected get(actionName: ActionName): StateName {
     const newStateName = this._actions.get(actionName);
 

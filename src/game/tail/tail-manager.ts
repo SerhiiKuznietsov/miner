@@ -15,11 +15,11 @@ export class TailManager {
     this._config = config;
   }
 
-  private get(x: number, y: number): Tail {
-    const tail = this._tails.get(createId(x, y));
+  private get(id: string): Tail {
+    const tail = this._tails.get(id);
 
     if (!tail) {
-      throw new Error(`Tail with x: ${x} y: ${y} not found`);
+      throw new Error(`Tail with id: ${id} not found`);
     }
 
     return tail;
@@ -33,30 +33,29 @@ export class TailManager {
     this.clear();
 
     content.forEach((content) => {
-      const [id, element, StateController] = content;
+      const [id, StateController, around] = content;
 
-      this._tails.set(id, new Tail(element, StateController));
+      this._tails.set(id, new Tail(StateController, id, around));
     });
   }
 
   public useActionById(id: string, action: Action): void {
-    const [x, y] = parseId(id);
-
-
-    const newState = this.get(x, y).useAction(action);
+    const newState = this.get(id).useAction(action);
 
     if (newState === StateNamesList.redMineState) {
       gameObserver.notify("lose");
     }
 
-    this.openAround(x, y, newState);
+    this.openAround(id, newState);
 
     if (this._openField === this._config.needToOpen) {
       gameObserver.notify("win");
     }
   }
 
-  private openAround(x: number, y: number, newState: string | undefined): void {
+  private openAround(id: string, newState: string | undefined): void {
+    const [x, y] = parseId(id);
+
     if (
       newState === StateNamesList.emptyState ||
       newState === StateNamesList.aroundState
@@ -72,9 +71,10 @@ export class TailManager {
         j <= y + 1 && j < this._config.rows;
         j++
       ) {
-        const newState = this.get(i, j).useAction(new CalcAction());
+        const newId = createId(i, j);
+        const newState = this.get(newId).useAction(new CalcAction());
 
-        this.openAround(i, j, newState);
+        this.openAround(newId, newState);
       }
     }
   }

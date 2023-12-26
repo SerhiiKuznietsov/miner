@@ -1,13 +1,16 @@
 import { Action } from "../actions/actions";
 import { StateController } from "../controllers/state-controller";
+import { tailStateObservable } from "../observable/tailState";
 
 export class Tail {
-  private _element: Element;
   private _stateController: StateController;
+  private _id: string;
+  private _around: number = 0;
 
-  constructor(element: Element, stateController: StateController) {
-    this._element = element;
+  constructor(stateController: StateController, id: string, around: number) {
     this._stateController = stateController;
+    this._id = id;
+    this._around = around;
   }
 
   useAction(action: Action): string | undefined {
@@ -17,6 +20,13 @@ export class Tail {
 
     if (!newStateName) return;
 
-    return this._stateController.change(newStateName, this._element);
+    const newState = this._stateController.change(newStateName);
+    tailStateObservable.notify(newStateName, [
+      newStateName,
+      this._id,
+      this._around,
+    ]);
+
+    return newState;
   }
 }

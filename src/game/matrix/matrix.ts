@@ -31,7 +31,7 @@ export class Matrix {
     }
 
     if (matrixItem.around) {
-      spawner = new SpawnerAroundTailState(matrixItem.around);
+      spawner = new SpawnerAroundTailState();
     }
 
     return spawner.spawn();
@@ -43,13 +43,13 @@ export class Matrix {
     this._list.forEach((matrixItem) => {
       const state = this.createTailState(matrixItem);
 
-      result.push([matrixItem.id, matrixItem.element, state]);
+      result.push([matrixItem.id, state, matrixItem.around]);
     });
 
     return result;
   }
 
-  public init(field: Field, firsClick?: Vector2) {
+  public init(firsClick?: Vector2) {
     this._list.clear();
 
     for (
@@ -62,9 +62,8 @@ export class Matrix {
         y++;
       }
 
-      const cell = field.getCell(x, y);
       const id = createId(x, y);
-      const newMatrixItem = new MatrixItem(x, y, id, cell);
+      const newMatrixItem = new MatrixItem(x, y, id);
       this._list.set(id, newMatrixItem);
 
       if (firsClick && firsClick.x === x && firsClick.y === y) {
