@@ -1,4 +1,4 @@
-import { Image } from "./image";
+import { Image } from "../image";
 
 export class MineImage extends Image {
   public static mineWrong: string = "mine_wrong.svg";

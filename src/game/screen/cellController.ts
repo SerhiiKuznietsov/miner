@@ -2,7 +2,7 @@ import { Config } from "../config/game";
 import { tailStateObservable } from "../observable/tailState";
 import { StateName, StateNamesList } from "../states/type/type";
 import { createId } from "../utils/id";
-import { MineView } from "../view/mine";
+import { MineView } from "./view/mine";
 import { Cell } from "./cell";
 import { createFieldCell } from "./utils/createCell";
 

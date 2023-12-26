@@ -1,18 +1,20 @@
 import { Config } from "./config/game";
-import { Face } from "./screen/face";
-import { Field } from "./screen/field";
 import { Vector2 } from "./geometry/vector2";
 import { gameObserver } from "./observable/game";
 import { TailManager } from "./tail/tail-manager";
 import { getAttrsWithEvent } from "./utils/html/click";
 import { parseId } from "./utils/id";
 import { ActionName, ActionNamesList } from "./actions/actions";
+import { Screen } from "./screen/screen";
 
 export class Game {
   private _config = new Config();
-  private _face = new Face();
-  private _field = new Field(this._config);
   private _tailManager = new TailManager(this._config);
+  private _screen = new Screen(
+    this._config,
+    this.leftClickHandler.bind(this),
+    this.rightClickHandler.bind(this)
+  );
   private _isFirstClick: boolean = true;
 
   constructor() {
@@ -23,11 +25,7 @@ export class Game {
   }
 
   public start() {
-    this._field.init();
-    this._field.on("click", this.leftClickHandler.bind(this));
-    this._field.on("contextmenu", this.rightClickHandler.bind(this));
-
-    this._face.init();
+    this._screen.init();
     this._isFirstClick = true;
 
     this._tailManager.init();

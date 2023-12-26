@@ -1,5 +1,5 @@
 import { gameObserver } from "../observable/game";
-import { FaceView } from "../view/face";
+import { FaceView } from "./view/face";
 
 export class Face {
   private _element: HTMLSpanElement = document.querySelector(

@@ -1,4 +1,4 @@
-import { Image } from "./image";
+import { Image } from "../image";
 
 export class FaceImage extends Image {
   public static facePressed: string = "face_pressed.svg";
