@@ -28,23 +28,23 @@ export class Face {
     this.unpressed();
   }
 
-  public init(): void {
-    this.unpressed();
-  }
-
   private pressed() {
     FaceView.setPressed(this._element);
   }
 
-  public unpressed(): void {
+  public init(): void {
+    this.unpressed();
+  }
+
+  private unpressed(): void {
     FaceView.setUnpressed(this._element);
   }
 
-  public win(): void {
+  private win(): void {
     FaceView.setWin(this._element);
   }
 
-  public lose(): void {
+  private lose(): void {
     FaceView.setLose(this._element);
   }
 }

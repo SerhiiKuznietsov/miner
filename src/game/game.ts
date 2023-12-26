@@ -1,18 +1,12 @@
 import { Action, LeftClickAction, RightClickAction } from "./actions/actions";
 import { Config } from "./config/game";
-import { Face } from "./filed/face";
-import { Field } from "./filed/field";
+import { Face } from "./screen/face";
+import { Field } from "./screen/field";
 import { Vector2 } from "./geometry/vector2";
 import { gameObserver } from "./observable/game";
 import { TailManager } from "./tail/tail-manager";
 import { getAttrsWithEvent } from "./utils/html/click";
 import { parseId } from "./utils/id";
-
-// export class Screen {
-//   private _field = new Field(this._config);
-//   private _face = new Face();
-
-// }
 
 export class Game {
   private _config = new Config();
