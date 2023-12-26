@@ -1,4 +1,4 @@
-import { ActionName } from "../../actions/type/type";
+import { ActionName } from "../../actions/actions";
 import { TailState } from "../state";
 
 export enum StateNamesList {

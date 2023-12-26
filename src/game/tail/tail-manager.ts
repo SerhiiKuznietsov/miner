@@ -1,4 +1,5 @@
-import { Action, CalcAction } from "../actions/actions";
+import { CalcAction } from "../actions/actions";
+import { ActionName, ActionNamesList } from "../actions/actions";
 import { Config } from "../config/game";
 import { Vector2 } from "../geometry/vector2";
 import { Matrix } from "../matrix/matrix";
@@ -44,8 +45,8 @@ export class TailManager {
     });
   }
 
-  public useActionById(id: string, action: Action): void {
-    const newState = this.get(id).useAction(action);
+  public useActionById(id: string, actionName: ActionName): void {
+    const newState = this.get(id).useAction(actionName);
 
     if (newState === StateNamesList.redMineState) {
       gameObserver.notify("lose");
@@ -77,7 +78,7 @@ export class TailManager {
         j++
       ) {
         const newId = createId(i, j);
-        const newState = this.get(newId).useAction(new CalcAction());
+        const newState = this.get(newId).useAction(ActionNamesList.calc);
 
         this.openAround(newId, newState);
       }

@@ -1,4 +1,3 @@
-import { Action, LeftClickAction, RightClickAction } from "./actions/actions";
 import { Config } from "./config/game";
 import { Face } from "./screen/face";
 import { Field } from "./screen/field";
@@ -7,6 +6,7 @@ import { gameObserver } from "./observable/game";
 import { TailManager } from "./tail/tail-manager";
 import { getAttrsWithEvent } from "./utils/html/click";
 import { parseId } from "./utils/id";
+import { ActionName, ActionNamesList } from "./actions/actions";
 
 export class Game {
   private _config = new Config();
@@ -38,21 +38,21 @@ export class Game {
   private lose(): void {}
 
   private leftClickHandler(e: Event): void {
-    this.userClickHandler(e, new LeftClickAction());
+    this.userClickHandler(e, ActionNamesList.leftClick);
   }
 
   private rightClickHandler(e: Event): void {
-    this.userClickHandler(e, new RightClickAction());
+    this.userClickHandler(e, ActionNamesList.rightClick);
   }
 
-  private userClickHandler(e: Event, action: Action): void {
+  private userClickHandler(e: Event, actionName: ActionName): void {
     e.preventDefault();
 
     const id = getAttrsWithEvent(e);
 
     this.checkFirstClick(id);
 
-    this._tailManager.useActionById(id, action);
+    this._tailManager.useActionById(id, actionName);
   }
 
   private checkFirstClick(id: string) {

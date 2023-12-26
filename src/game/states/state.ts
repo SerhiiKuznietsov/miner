@@ -1,5 +1,4 @@
-import { Action } from "../actions/actions";
-import { ActionName } from "../actions/type/type";
+import { ActionName } from "../actions/actions";
 import { ActionList, StateName } from "./type/type";
 
 export abstract class TailState {
@@ -23,10 +22,10 @@ export abstract class TailState {
     return newStateName;
   }
 
-  public useAction(action: Action): StateName | undefined {
-    if (!this._actions.has(action.name)) return;
+  public useAction(actionName: ActionName): StateName | undefined {
+    if (!this._actions.has(actionName)) return;
 
-    return this.get(action.name);
+    return this.get(actionName);
   }
 
   protected addActionsList(list?: ActionList): void {

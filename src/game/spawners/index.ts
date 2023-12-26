@@ -1,4 +1,4 @@
-import { ActionNamesList } from "../actions/type/type";
+import { ActionNamesList } from "../actions/actions";
 import { StateController } from "../controllers/state-controller";
 import { AroundState } from "../states/around";
 import { CloseState } from "../states/close";
