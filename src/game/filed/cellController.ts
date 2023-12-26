@@ -75,8 +75,6 @@ export class CellController {
   private changeCellView([state, id, around]: [StateName, string, number]) {
     const cell = this.getCellById(id);
 
-    console.log(state, id);
-
     if (state === StateNamesList.aroundState) {
       MineView.setImageType(cell.element, around);
       return;

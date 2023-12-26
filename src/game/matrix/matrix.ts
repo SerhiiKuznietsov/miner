@@ -1,43 +1,40 @@
 import { Config } from "../config/game";
 import { StateController } from "../controllers/state-controller";
-import { Field } from "../filed/field";
 import { Vector2 } from "../geometry/vector2";
 import {
-  MineTailStateSpawner,
-  SpawnerAroundTailState,
-  EmptyTailStateSpawner,
+  spawnAroundTailState,
+  spawnEmptyTailState,
+  spawnMineTailState,
 } from "../spawners";
 import { createId } from "../utils/id";
-import { MatrixMineAroundEnricher } from "./enrichers/around";
-import { MatrixMineEnricher } from "./enrichers/mine";
+import { useMatrixMineAroundEnricher } from "./enrichers/around";
+import { useMatrixMineEnricher } from "./enrichers/mine";
 import { MatrixItem } from "./matrix-item";
 import { MatrixList, MatrixGenerateContent } from "./type/type";
 
 export class Matrix {
   private _list: MatrixList = new Map();
   private _config: Config;
-  private _matrixMineEnricher = new MatrixMineEnricher();
-  private _matrixMineAroundEnricher = new MatrixMineAroundEnricher();
 
   constructor(config: Config) {
     this._config = config;
   }
 
   private createTailState(matrixItem: MatrixItem): StateController {
-    let spawner = new EmptyTailStateSpawner();
-
     if (matrixItem.isMine) {
-      spawner = new MineTailStateSpawner();
+      return spawnMineTailState();
     }
 
     if (matrixItem.around) {
-      spawner = new SpawnerAroundTailState();
+      return spawnAroundTailState();
     }
 
-    return spawner.spawn();
+    return spawnEmptyTailState();
   }
 
-  public tailSpawner(): MatrixGenerateContent {
+  public spawn(firsClick?: Vector2): MatrixGenerateContent {
+    this.createMatrix(firsClick);
+
     const result: MatrixGenerateContent = [];
 
     this._list.forEach((matrixItem) => {
@@ -49,8 +46,12 @@ export class Matrix {
     return result;
   }
 
-  public init(firsClick?: Vector2) {
+  private clear() {
     this._list.clear();
+  }
+
+  private createMatrix(firsClick?: Vector2) {
+    this.clear();
 
     for (
       let i = 0, y = -1, x = 0;
@@ -73,9 +74,9 @@ export class Matrix {
 
     if (!firsClick) return;
 
-    this._matrixMineEnricher.enrich(this._config, this.getItem.bind(this));
+    useMatrixMineEnricher(this._config, this.getItem.bind(this));
 
-    this._matrixMineAroundEnricher.enrich(
+    useMatrixMineAroundEnricher(
       this._list,
       this._config,
       this.getItem.bind(this)

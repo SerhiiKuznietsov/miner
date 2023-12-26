@@ -3,7 +3,6 @@ import { Config } from "./config/game";
 import { Face } from "./filed/face";
 import { Field } from "./filed/field";
 import { Vector2 } from "./geometry/vector2";
-import { Matrix } from "./matrix/matrix";
 import { gameObserver } from "./observable/game";
 import { TailManager } from "./tail/tail-manager";
 import { getAttrsWithEvent } from "./utils/html/click";
@@ -20,7 +19,6 @@ export class Game {
   private _face = new Face();
   private _field = new Field(this._config);
   private _tailManager = new TailManager(this._config);
-  private _matrix = new Matrix(this._config);
   private _isFirstClick: boolean = true;
 
   constructor() {
@@ -38,8 +36,7 @@ export class Game {
     this._face.init();
     this._isFirstClick = true;
 
-    this._matrix.init();
-    this._tailManager.init(this._matrix.tailSpawner());
+    this._tailManager.init();
   }
 
   private win(): void {}
@@ -69,9 +66,7 @@ export class Game {
 
     const [x, y] = parseId(id);
 
-    this._matrix.init(new Vector2(x, y));
-
-    this._tailManager.init(this._matrix.tailSpawner());
+    this._tailManager.init(new Vector2(x, y));
     this._isFirstClick = false;
   }
 }
