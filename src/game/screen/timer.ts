@@ -6,7 +6,7 @@ export class Timer {
     ".miner__timer span"
   ) as HTMLSpanElement;
   private _startTime = Date.now();
-  private _currentTime: string = "000";
+  private _outputTime: string = "000";
   private _loopTimer: any;
 
   constructor() {
@@ -14,18 +14,21 @@ export class Timer {
   }
 
   private observerHandler(data: GameEventType) {
-    if (data === GameEvent.start) {
+    if (data === GameEvent.firstClick) {
       this.start();
     }
 
     if (data === GameEvent.win || data === GameEvent.lose) {
       this.stop();
     }
+
+    if (data === GameEvent.start) {
+      this.clear();
+    }
   }
 
   public init(): void {
     this.drawTime();
-    this.start();
   }
 
   private start() {
@@ -40,6 +43,11 @@ export class Timer {
     clearInterval(this._loopTimer);
   }
 
+  private clear() {
+    this.stop();
+    this._outputTime = "000";
+  }
+
   private calcTime() {
     const currentTime = Math.floor((Date.now() - this._startTime) / 1000);
 
@@ -47,10 +55,10 @@ export class Timer {
     const minutes = Math.floor((currentTime - seconds) / 60);
     const subSecond = seconds < 10 ? "0" : "";
 
-    this._currentTime = `${minutes}${subSecond}${seconds}`;
+    this._outputTime = `${minutes}${subSecond}${seconds}`;
   }
 
   private drawTime() {
-    this._element.textContent = this._currentTime;
+    this._element.textContent = this._outputTime;
   }
 }

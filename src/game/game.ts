@@ -59,6 +59,8 @@ export class Game {
   private checkFirstClick(id: string) {
     if (!this._isFirstClick) return;
 
+    gameObserver.notify(GameEvent.firstClick);
+
     const [x, y] = parseId(id);
 
     this._tailManager.init(new Vector2(x, y));
