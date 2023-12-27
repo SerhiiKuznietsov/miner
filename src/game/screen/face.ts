@@ -1,26 +1,13 @@
 import { GameEvent, GameEventType, gameObserver } from "../observable/game";
+import { ScreenObject } from "./screen";
 import { FaceView } from "./view/face";
 
-export class Face {
+export class Face implements ScreenObject {
   private _element: HTMLSpanElement = document.querySelector(
     ".miner__face span"
   ) as HTMLSpanElement;
 
-  constructor() {
-    this._element.addEventListener(
-      "mousedown",
-      this.mouseDownHandler.bind(this)
-    );
-    this._element.addEventListener("mouseup", this.mouseUpHandler.bind(this));
-
-    gameObserver.attach(this.observerHandler.bind(this));
-  }
-
   private observerHandler(data: GameEventType) {
-    if (data === GameEvent.start) {
-      this.unpressed();
-    }
-
     if (data === GameEvent.win) {
       this.win();
     }
@@ -44,8 +31,21 @@ export class Face {
   }
 
   public init(): void {
+    this._element.addEventListener(
+      "mousedown",
+      this.mouseDownHandler.bind(this)
+    );
+    this._element.addEventListener("mouseup", this.mouseUpHandler.bind(this));
+
+    gameObserver.attach(this.observerHandler.bind(this));
     this.unpressed();
   }
+
+  public start(): void {
+    this.unpressed();
+  }
+  public firstClick(): void {}
+  public stop(): void {}
 
   private unpressed(): void {
     FaceView.setUnpressed(this._element);

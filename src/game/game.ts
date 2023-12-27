@@ -6,19 +6,33 @@ import { getAttrsWithEvent } from "./utils/html/click";
 import { parseId } from "./utils/id";
 import { ActionName, ActionNamesList } from "./actions/actions";
 import { Screen } from "./screen/screen";
+import { Timer } from "./screen/timer";
+import { Field } from "./screen/field";
+import { Face } from "./screen/face";
 
 export class Game {
   private _config = new Config();
   private _tailManager = new TailManager(this._config);
-  private _screen = new Screen(
-    this._config,
-    this.leftClickHandler.bind(this),
-    this.rightClickHandler.bind(this)
-  );
+  private _screen = new Screen();
   private _isFirstClick: boolean = true;
 
   constructor() {
     gameObserver.attach(this.observerHandler.bind(this));
+  }
+
+  public init(): this {
+    this._screen.add(
+      new Field(this._config, [
+        ["click", this.leftClickHandler.bind(this)],
+        ["contextmenu", this.rightClickHandler.bind(this)],
+      ])
+    );
+    this._screen.add(new Timer());
+    this._screen.add(new Face());
+
+    this._screen.init();
+
+    return this;
   }
 
   private observerHandler(data: GameEventType) {
@@ -28,7 +42,6 @@ export class Game {
   }
 
   public start() {
-    this._screen.init();
     this._isFirstClick = true;
 
     this._tailManager.init();

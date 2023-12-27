@@ -1,24 +1,67 @@
-import { Config } from "../config/game";
-import { Face } from "./face";
-import { Field } from "./field";
-import { Timer } from "./timer";
-
-type ClickEventHandler = (e: Event) => void;
+import { GameEvent, GameEventType, gameObserver } from "../observable/game";
+export interface ScreenObject {
+  init(): void;
+  start(): void;
+  firstClick(): void;
+  stop(): void;
+}
 
 export class Screen {
-  private _face = new Face();
-  private _timer = new Timer();
-  private _field: Field;
+  private _instanceList = new Set<ScreenObject>();
+  private _startList = new Set<ScreenObject>();
+  private _firsClickList = new Set<ScreenObject>();
+  private _stopList = new Set<ScreenObject>();
+  constructor() {
+    gameObserver.attach(this.observerHandler.bind(this));
+  }
 
-  constructor(config: Config, leftClickHandler: ClickEventHandler, rightClickHandler: ClickEventHandler) {
-    this._field = new Field(config);
-    this._field.on("click", leftClickHandler);
-    this._field.on("contextmenu", rightClickHandler);
+  public add(instance: ScreenObject): this {
+    this._instanceList.add(instance);
+
+    if (instance[GameEvent.start]) {
+      this._startList.add(instance);
+    }
+
+    if (instance[GameEvent.firstClick]) {
+      this._firsClickList.add(instance);
+    }
+
+    if (instance["stop"]) {
+      this._stopList.add(instance);
+    }
+
+    return this;
+  }
+
+  private observerHandler(data: GameEventType) {
+    if (data === GameEvent.start) {
+      this._startList.forEach((instance) => {
+        instance[GameEvent.start]();
+      });
+    }
+
+    if (data === GameEvent.firstClick) {
+      this._firsClickList.forEach((instance) => {
+        instance[GameEvent.firstClick]();
+      });
+    }
+
+    if (data === GameEvent.win) {
+      this._stopList.forEach((instance) => {
+        instance["stop"]();
+      });
+    }
+
+    if (data === GameEvent.lose) {
+      this._stopList.forEach((instance) => {
+        instance["stop"]();
+      });
+    }
   }
 
   public init(): void {
-    this._face.init();
-    this._timer.init();
-    this._field.init();
+    this._stopList.forEach((instance) => {
+      instance.init();
+    });
   }
 }

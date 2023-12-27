@@ -1,7 +1,6 @@
-import { GameEvent, GameEventType, gameObserver } from "../observable/game";
-// import { FaceView } from "./view/face";
+import { ScreenObject } from "./screen";
 
-export class Timer {
+export class Timer implements ScreenObject {
   private _element: HTMLSpanElement = document.querySelector(
     ".miner__timer span"
   ) as HTMLSpanElement;
@@ -9,29 +8,15 @@ export class Timer {
   private _outputTime: string = "000";
   private _loopTimer: any;
 
-  constructor() {
-    gameObserver.attach(this.observerHandler.bind(this));
-  }
-
-  private observerHandler(data: GameEventType) {
-    if (data === GameEvent.firstClick) {
-      this.start();
-    }
-
-    if (data === GameEvent.win || data === GameEvent.lose) {
-      this.stop();
-    }
-
-    if (data === GameEvent.start) {
-      this.clear();
-    }
-  }
-
   public init(): void {
     this.drawTime();
   }
 
-  private start() {
+  public start(): void {
+    this.clear();
+  }
+
+  public firstClick(): void {
     this._startTime = Date.now();
     this._loopTimer = setInterval(() => {
       this.calcTime();
@@ -39,12 +24,16 @@ export class Timer {
     }, 1000);
   }
 
-  private stop() {
+  public stop(): void {
+    this.stopTimer();
+  }
+
+  private stopTimer() {
     clearInterval(this._loopTimer);
   }
 
   private clear() {
-    this.stop();
+    this.stopTimer();
     this._outputTime = "000";
   }
 

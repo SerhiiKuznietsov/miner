@@ -1,3 +1,3 @@
 import { Game } from "./game/game";
 
-new Game().start();
+new Game().init().start();
