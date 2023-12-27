@@ -21,11 +21,7 @@ export class Tail {
     if (!newStateName) return;
 
     const newState = this._stateController.change(newStateName);
-    tailStateObservable.notify(newStateName, [
-      newStateName,
-      this._id,
-      this._around,
-    ]);
+    tailStateObservable.notify([newStateName, this._id, this._around]);
 
     return newState;
   }

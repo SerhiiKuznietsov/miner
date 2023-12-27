@@ -1,7 +1,13 @@
 import { Observable } from "./observable";
 
-type gameActions = "start" | "win" | "lose";
+export enum GameEvent {
+  start = "start",
+  win = "win",
+  lose = "lose",
+}
 
-class GameObserver extends Observable<gameActions, any> {}
+export type GameEventType = GameEvent.start | GameEvent.win | GameEvent.lose;
+
+class GameObserver extends Observable<GameEventType> {}
 
 export const gameObserver = new GameObserver();

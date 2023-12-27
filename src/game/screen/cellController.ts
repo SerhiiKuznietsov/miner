@@ -1,6 +1,6 @@
 import { Config } from "../config/game";
-import { tailStateObservable } from "../observable/tailState";
-import { StateName, StateNamesList } from "../states/type/type";
+import { DataType, tailStateObservable } from "../observable/tailState";
+import { StateNamesList } from "../states/type/type";
 import { createId } from "../utils/id";
 import { MineView } from "./view/mine";
 import { Cell } from "./cell";
@@ -32,34 +32,48 @@ export class CellController {
       body.append(cell);
     }
 
-    tailStateObservable.attach(
-      StateNamesList.aroundState,
-      this.changeCellView.bind(this)
-    );
-    tailStateObservable.attach(
-      StateNamesList.closeState,
-      this.changeCellView.bind(this)
-    );
-    tailStateObservable.attach(
-      StateNamesList.emptyState,
-      this.changeCellView.bind(this)
-    );
-    tailStateObservable.attach(
-      StateNamesList.falseFlagState,
-      this.changeCellView.bind(this)
-    );
-    tailStateObservable.attach(
-      StateNamesList.flagState,
-      this.changeCellView.bind(this)
-    );
-    tailStateObservable.attach(
-      StateNamesList.mineState,
-      this.changeCellView.bind(this)
-    );
-    tailStateObservable.attach(
-      StateNamesList.redMineState,
-      this.changeCellView.bind(this)
-    );
+    tailStateObservable.attach(this.observerHandler.bind(this));
+  }
+
+  private observerHandler(data: DataType) {
+    const [stateNames, id, around] = data;
+
+    const cell = this.getCellById(id);
+
+    if (stateNames === StateNamesList.aroundState) {
+      MineView.setImageType(cell.element, around);
+      return;
+    }
+
+    if (stateNames === StateNamesList.closeState) {
+      MineView.setImageClosed(cell.element);
+      return;
+    }
+
+    if (stateNames === StateNamesList.emptyState) {
+      MineView.setImageType(cell.element);
+      return;
+    }
+
+    if (stateNames === StateNamesList.falseFlagState) {
+      MineView.setImageMineWrong(cell.element);
+      return;
+    }
+
+    if (stateNames === StateNamesList.flagState) {
+      MineView.setImageFlag(cell.element);
+      return;
+    }
+
+    if (stateNames === StateNamesList.mineState) {
+      MineView.setImageMine(cell.element);
+      return;
+    }
+
+    if (stateNames === StateNamesList.redMineState) {
+      MineView.setImageMineRed(cell.element);
+      return;
+    }
   }
 
   private getCellById(id: string): Cell {
@@ -70,45 +84,6 @@ export class CellController {
     }
 
     return cell;
-  }
-
-  private changeCellView([state, id, around]: [StateName, string, number]) {
-    const cell = this.getCellById(id);
-
-    if (state === StateNamesList.aroundState) {
-      MineView.setImageType(cell.element, around);
-      return;
-    }
-
-    if (state === StateNamesList.closeState) {
-      MineView.setImageClosed(cell.element);
-      return;
-    }
-
-    if (state === StateNamesList.emptyState) {
-      MineView.setImageType(cell.element);
-      return;
-    }
-
-    if (state === StateNamesList.falseFlagState) {
-      MineView.setImageMineWrong(cell.element);
-      return;
-    }
-
-    if (state === StateNamesList.flagState) {
-      MineView.setImageFlag(cell.element);
-      return;
-    }
-
-    if (state === StateNamesList.mineState) {
-      MineView.setImageMine(cell.element);
-      return;
-    }
-
-    if (state === StateNamesList.redMineState) {
-      MineView.setImageMineRed(cell.element);
-      return;
-    }
   }
 
   private add(id: string, cell: Cell) {

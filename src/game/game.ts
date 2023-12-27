@@ -1,6 +1,6 @@
 import { Config } from "./config/game";
 import { Vector2 } from "./geometry/vector2";
-import { gameObserver } from "./observable/game";
+import { GameEvent, GameEventType, gameObserver } from "./observable/game";
 import { TailManager } from "./tail/tail-manager";
 import { getAttrsWithEvent } from "./utils/html/click";
 import { parseId } from "./utils/id";
@@ -18,10 +18,13 @@ export class Game {
   private _isFirstClick: boolean = true;
 
   constructor() {
-    gameObserver
-      .attach("start", this.start.bind(this))
-      .attach("win", this.win.bind(this))
-      .attach("lose", this.lose.bind(this));
+    gameObserver.attach(this.observerHandler.bind(this));
+  }
+
+  private observerHandler(data: GameEventType) {
+    if (data === GameEvent.start) {
+      this.start();
+    }
   }
 
   public start() {

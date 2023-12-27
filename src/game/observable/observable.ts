@@ -1,40 +1,30 @@
-export type ObserverType = Function;
+export type ObserverType<D> = (data: D) => void;
 
-export type ObserversList = Set<ObserverType>;
+export class Observable<D> {
+  private observers = new Set<ObserverType<D>>();
 
-export class Observable<E, D> {
-  private observers = new Map<E, ObserversList>();
-
-  private getObserversByEventName(eventName: E): ObserversList {
-    const observersList = this.observers.get(eventName);
-
-    if (!observersList) {
-      throw new Error(`Observers with event name "${eventName}" not found`);
+  public attach(observer: ObserverType<D>): this {
+    if (this.observers.has(observer)) {
+      throw new Error(`Duplicate observer`);
     }
 
-    return observersList;
-  }
-
-  public attach(eventName: E, observer: ObserverType): this {
-    if (!this.observers.has(eventName)) {
-      this.observers.set(eventName, new Set());
-    }
-
-    this.getObserversByEventName(eventName).add(observer);
+    this.observers.add(observer);
 
     return this;
   }
 
-  public detach(eventName: E, observer: ObserverType): this {
-    this.getObserversByEventName(eventName).delete(observer);
+  public detach(observer: ObserverType<D>): this {
+    if (!this.observers.has(observer)) {
+      throw new Error(`Duplicate observer`);
+    }
+
+    this.observers.delete(observer);
 
     return this;
   }
 
-  public notify(eventName: E, data?: D): this {
-    this.getObserversByEventName(eventName).forEach((observer) => {
-      observer(data);
-    });
+  public notify(data: D): this {
+    this.observers.forEach((observer) => observer(data));
 
     return this;
   }

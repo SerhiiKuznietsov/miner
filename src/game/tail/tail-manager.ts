@@ -2,7 +2,7 @@ import { ActionName, ActionNamesList } from "../actions/actions";
 import { Config } from "../config/game";
 import { Vector2 } from "../geometry/vector2";
 import { spawnTailMatrix } from "./matrix/matrix";
-import { gameObserver } from "../observable/game";
+import { GameEvent, gameObserver } from "../observable/game";
 import { StateNamesList } from "../states/type/type";
 import { createId, parseId } from "../utils/id";
 import { Tail } from "./tail";
@@ -46,13 +46,13 @@ export class TailManager {
     const newState = this.get(id).useAction(actionName);
 
     if (newState === StateNamesList.redMineState) {
-      gameObserver.notify("lose");
+      gameObserver.notify(GameEvent.lose);
     }
 
     this.openAround(id, newState);
 
     if (this._openField === this._config.needToOpen) {
-      gameObserver.notify("win");
+      gameObserver.notify(GameEvent.win);
     }
   }
 

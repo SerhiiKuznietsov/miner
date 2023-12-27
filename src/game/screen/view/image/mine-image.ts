@@ -6,7 +6,7 @@ export class MineImage extends Image {
   public static mine: string = "mine.svg";
   public static flag: string = "flag.svg";
   public static closed: string = "closed.svg";
-  public static mineCount(num: number) {
+  public static mineCount(num: number = 0) {
     return `type${num}.svg`;
   }
 }

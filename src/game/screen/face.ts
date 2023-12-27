@@ -1,4 +1,4 @@
-import { gameObserver } from "../observable/game";
+import { GameEvent, GameEventType, gameObserver } from "../observable/game";
 import { FaceView } from "./view/face";
 
 export class Face {
@@ -13,15 +13,26 @@ export class Face {
     );
     this._element.addEventListener("mouseup", this.mouseUpHandler.bind(this));
 
-    gameObserver
-      .attach("start", this.unpressed.bind(this))
-      .attach("win", this.win.bind(this))
-      .attach("lose", this.lose.bind(this));
+    gameObserver.attach(this.observerHandler.bind(this));
+  }
+
+  private observerHandler(data: GameEventType) {
+    if (data === GameEvent.start) {
+      this.unpressed();
+    }
+
+    if (data === GameEvent.win) {
+      this.win();
+    }
+
+    if (data === GameEvent.lose) {
+      this.lose();
+    }
   }
 
   private mouseDownHandler() {
     this.pressed();
-    gameObserver.notify("start");
+    gameObserver.notify(GameEvent.start);
   }
 
   private mouseUpHandler() {

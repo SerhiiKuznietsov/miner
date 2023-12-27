@@ -13,7 +13,7 @@ export class MineView {
     MineImage.setBackgroundImage(element, MineImage.closed);
   }
 
-  public static setImageType(element: HTMLElement, mineAround: number = 0) {
+  public static setImageType(element: HTMLElement, mineAround?: number) {
     MineImage.setBackgroundImage(element, MineImage.mineCount(mineAround));
   }
 
