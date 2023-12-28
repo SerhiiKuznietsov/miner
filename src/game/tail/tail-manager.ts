@@ -30,7 +30,31 @@ export class TailManager {
     this._tails.clear();
   }
 
-  public init(vector2?: Vector2): void {
+  public init(): void {
+    this.clear();
+
+    const tailMatrix = spawnTailMatrix(this._config);
+
+    tailMatrix.forEach((tailMatrixItem) => {
+      const [id, StateController, around] = tailMatrixItem;
+
+      this._tails.set(id, new Tail(StateController, id, around));
+    });
+  }
+
+  public restart(): void {
+    this.clear();
+
+    const tailMatrix = spawnTailMatrix(this._config);
+
+    tailMatrix.forEach((tailMatrixItem) => {
+      const [id, StateController, around] = tailMatrixItem;
+
+      this._tails.set(id, new Tail(StateController, id, around));
+    });
+  }
+
+  public start(vector2?: Vector2): void {
     this.clear();
 
     const tailMatrix = spawnTailMatrix(this._config, vector2);

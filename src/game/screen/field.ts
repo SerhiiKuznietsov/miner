@@ -1,4 +1,5 @@
 import { Config } from "../config/game";
+import { convertSizeToPx } from "../utils/px";
 import { CellController } from "./cellController";
 import { ScreenObject } from "./screen";
 // type ClickEventHandler = (e: Event) => void;
@@ -16,29 +17,35 @@ export class Field implements ScreenObject {
   constructor(config: Config, handlers: Array<[string, EventListener]>) {
     this._config = config;
     this._cellController = new CellController(config);
-
     this._handlers = handlers;
   }
 
-  public init(): void {
-    this.clear();
-    this.resize();
-    this._cellController.init(this._body);
-    this.start();
-  }
-
-  public firstClick(): void {}
-
-  public start(): void {
+  private onHandlers() {
     this._handlers.forEach((item) => {
       this._body.addEventListener(item[0], item[1]);
     });
   }
 
-  public stop(): void {
+  private offHandlers() {
     this._handlers.forEach((item) => {
       this._body.removeEventListener(item[0], item[1]);
     });
+  }
+
+  public init(): void {
+    this.resize();
+    this._cellController.init(this._body);
+    this.onHandlers();
+  }
+
+  public restart(): void {
+    this.clear();
+    this.offHandlers();
+    this.init();
+  }
+
+  public stop(): void {
+    this.offHandlers();
   }
 
   private clear(): void {
@@ -46,8 +53,8 @@ export class Field implements ScreenObject {
   }
 
   private resize(): void {
-    this._element.style.width = `${
+    this._element.style.width = convertSizeToPx(
       this._config.rows * this._config.tileSize
-    }px`;
+    );
   }
 }

@@ -9,17 +9,17 @@ export class Face implements ScreenObject {
 
   private observerHandler(data: GameEventType) {
     if (data === GameEvent.win) {
-      this.win();
+      FaceView.setWin(this._element);
     }
 
     if (data === GameEvent.lose) {
-      this.lose();
+      FaceView.setLose(this._element);
     }
   }
 
   private mouseDownHandler() {
     this.pressed();
-    gameObserver.notify(GameEvent.start);
+    gameObserver.notify(GameEvent.restart);
   }
 
   private mouseUpHandler() {
@@ -28,6 +28,10 @@ export class Face implements ScreenObject {
 
   private pressed() {
     FaceView.setPressed(this._element);
+  }
+
+  public restart(): void {
+    this.unpressed();
   }
 
   public init(): void {
@@ -44,18 +48,8 @@ export class Face implements ScreenObject {
   public start(): void {
     this.unpressed();
   }
-  public firstClick(): void {}
-  public stop(): void {}
 
   private unpressed(): void {
     FaceView.setUnpressed(this._element);
-  }
-
-  private win(): void {
-    FaceView.setWin(this._element);
-  }
-
-  private lose(): void {
-    FaceView.setLose(this._element);
   }
 }
