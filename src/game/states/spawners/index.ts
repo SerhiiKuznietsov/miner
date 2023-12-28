@@ -1,12 +1,12 @@
 import { ActionNamesList } from "../../actions/actions";
 import { StateController } from "../../controllers/state-controller";
-import { AroundState } from "../around";
-import { CloseState } from "../close";
-import { EmptyState } from "../empty";
-import { FalseFlagState } from "../false-flag";
-import { FlagState } from "../flag";
-import { MineState } from "../mine";
-import { RedMineState } from "../mine-red";
+import { AroundState } from "../tail/around";
+import { CloseState } from "../tail/close";
+import { EmptyState } from "../tail/empty";
+import { FalseFlagState } from "../tail/false-flag";
+import { FlagState } from "../tail/flag";
+import { MineState } from "../tail/mine";
+import { RedMineState } from "../tail/mine-red";
 import { StateNamesList } from "../type/type";
 
 export const spawnEmptyTailState = (): StateController => {

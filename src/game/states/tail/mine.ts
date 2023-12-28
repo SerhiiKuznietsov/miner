@@ -1,5 +1,5 @@
-import { TailState } from "./state";
-import { ActionList, StateNamesList } from "./type/type";
+import { TailState } from "./tailState";
+import { ActionList, StateNamesList } from "../type/type";
 
 export class MineState extends TailState {
   constructor(list?: ActionList) {

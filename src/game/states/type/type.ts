@@ -1,5 +1,5 @@
 import { ActionName } from "../../actions/actions";
-import { TailState } from "../state";
+import { TailState } from "../tail/tailState";
 
 export enum StateNamesList {
   closeState = "closeState",

@@ -1,4 +1,4 @@
-import { TailState } from "../states/state";
+import { TailState } from "../states/tail/tailState";
 import { StateList, StateName, StateNamesList } from "../states/type/type";
 
 export class StateController {

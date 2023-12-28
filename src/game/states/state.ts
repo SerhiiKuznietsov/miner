@@ -1,16 +1,15 @@
-import { ActionName } from "../actions/actions";
-import { ActionList, StateName } from "./type/type";
+import { ActionList } from "./type/type";
 
-export abstract class TailState {
-  public readonly name: StateName;
-  protected _actions = new Map<ActionName, StateName>();
+export abstract class State<A, S> {
+  public readonly name: S;
+  protected _actions = new Map<A, S>();
 
-  constructor(name: StateName, list?: ActionList) {
+  constructor(name: S, list?: ActionList<A, S>) {
     this.name = name;
     this.addActionsList(list);
   }
 
-  protected get(actionName: ActionName): StateName {
+  protected get(actionName: A): S {
     const newStateName = this._actions.get(actionName);
 
     if (!newStateName) {
@@ -22,19 +21,19 @@ export abstract class TailState {
     return newStateName;
   }
 
-  public useAction(actionName: ActionName): StateName | undefined {
+  public useAction(actionName: A): S | undefined {
     if (!this._actions.has(actionName)) return;
 
     return this.get(actionName);
   }
 
-  protected addActionsList(list?: ActionList): void {
+  protected addActionsList(list?: ActionList<A, S>): void {
     list?.forEach(([actionName, stateName]) => {
       this.addActionItem(actionName, stateName);
     });
   }
 
-  protected addActionItem(actionName: ActionName, stateName: StateName) {
+  protected addActionItem(actionName: A, stateName: S) {
     if (this._actions.has(actionName)) {
       throw new Error(`Not unique action name: ${actionName}`);
     }
