@@ -2,18 +2,26 @@ import { ActionName, ActionNamesList } from "../actions/actions";
 import { Config } from "../config/game";
 import { Vector2 } from "../geometry/vector2";
 import { spawnTailMatrix } from "./matrix/matrix";
-import { GameEvent, gameObserver } from "../observable/game";
+import { GameEvent, gameObserver } from "../observable/gameEvent";
 import { StateNamesList } from "../states/type/type";
 import { createId, parseId } from "../utils/id";
 import { Tail } from "./tail";
+import {
+  ClickEvent,
+  ClickEventObserverDataType,
+  clickEventObserver,
+} from "../observable/clickHandlers";
+import { getAttrsWithEvent } from "../utils/html/click";
 
 export class TailManager {
   private _tails = new Map<string, Tail>();
   private _config: Config;
   private _openField: number = 0;
+  private _firstClick: Vector2 | undefined;
 
   constructor(config: Config) {
     this._config = config;
+    clickEventObserver.attach(this.observerHandler.bind(this));
   }
 
   private get(id: string): Tail {
@@ -26,13 +34,38 @@ export class TailManager {
     return tail;
   }
 
+  private observerHandler(data: ClickEventObserverDataType): void {
+    const [eventName, e] = data;
+
+    const id = getAttrsWithEvent(e);
+
+    if (!this._firstClick) {
+      const [x, y] = parseId(id);
+
+      this._firstClick = new Vector2(x, y);
+
+      gameObserver.notify(GameEvent.start);
+    }
+
+    let actionName: ActionName;
+
+    if (eventName === ClickEvent.left) {
+      actionName = ActionNamesList.leftClick;
+    } else if (eventName === ClickEvent.right) {
+      actionName = ActionNamesList.rightClick;
+    } else {
+      actionName = ActionNamesList.leftClick;
+    }
+
+    this.useActionById(id, actionName);
+  }
+
   private clear(): void {
     this._tails.clear();
+    this._firstClick = undefined;
   }
 
   public init(): void {
-    this.clear();
-
     const tailMatrix = spawnTailMatrix(this._config);
 
     tailMatrix.forEach((tailMatrixItem) => {
@@ -44,6 +77,7 @@ export class TailManager {
 
   public restart(): void {
     this.clear();
+    // this.init();
 
     const tailMatrix = spawnTailMatrix(this._config);
 
@@ -54,7 +88,9 @@ export class TailManager {
     });
   }
 
-  public start(vector2?: Vector2): void {
+  public start(): void {
+    const vector2 = this._firstClick;
+
     this.clear();
 
     const tailMatrix = spawnTailMatrix(this._config, vector2);

@@ -1,4 +1,4 @@
-import { GameEvent, GameEventType, gameObserver } from "../observable/game";
+import { GameEvent, GameEventType, gameObserver } from "../observable/gameEvent";
 
 export interface ManagerObject {
   init(): void;

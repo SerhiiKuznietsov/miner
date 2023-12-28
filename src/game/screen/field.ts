@@ -1,8 +1,8 @@
 import { Config } from "../config/game";
+import { ClickEvent, clickEventObserver } from "../observable/clickHandlers";
 import { convertSizeToPx } from "../utils/px";
 import { CellController } from "./cellController";
 import { ScreenObject } from "./screen";
-// type ClickEventHandler = (e: Event) => void;
 export class Field implements ScreenObject {
   private _body: HTMLDivElement = document.querySelector(
     ".miner__body"
@@ -12,12 +12,26 @@ export class Field implements ScreenObject {
   ) as HTMLDivElement;
   private _config: Config;
   private _cellController: CellController;
-  private _handlers: Array<[string, EventListener]>;
+  private _handlers: [string, EventListener][] = [
+    [
+      "click",
+      (e: Event): void => {
+        e.preventDefault();
+        clickEventObserver.notify([ClickEvent.left, e]);
+      },
+    ],
+    [
+      "contextmenu",
+      (e: Event): void => {
+        e.preventDefault();
+        clickEventObserver.notify([ClickEvent.right, e]);
+      },
+    ],
+  ];
 
-  constructor(config: Config, handlers: Array<[string, EventListener]>) {
+  constructor(config: Config) {
     this._config = config;
     this._cellController = new CellController(config);
-    this._handlers = handlers;
   }
 
   private onHandlers() {
