@@ -23,7 +23,7 @@ export class Game {
 
   public init(): this {
     gameObserver.attach((stateName) => {
-      if (stateName == this._stateController.getActive().name) return;
+      if (stateName === this._stateController.getActive().name) return;
 
       throw new Error(
         "State change notification bypasses game state change logic"
