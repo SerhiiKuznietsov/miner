@@ -1,14 +1,14 @@
-import { StateController } from "../../controllers/state-controller";
+import { TailStateController } from "../../stateControllers/tailStateController";
 import {
   spawnMineTailState,
   spawnAroundTailState,
   spawnEmptyTailState,
-} from "../../states/spawners";
+} from "../../stateControllers/states/spawners";
 import { MatrixItem } from "./matrix-item";
 
 export const createTailStateByMatrix = (
   matrixItem: MatrixItem
-): StateController => {
+): TailStateController => {
   if (matrixItem.isMine) {
     return spawnMineTailState();
   }

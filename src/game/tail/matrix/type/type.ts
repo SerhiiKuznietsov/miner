@@ -1,6 +1,6 @@
-import { StateController } from "../../../controllers/state-controller";
+import { TailStateController } from "../../../stateControllers/tailStateController";
 import { MatrixItem } from "../matrix-item";
 
-export type MatrixGenerateContent = Array<[string, StateController, number]>;
+export type MatrixGenerateContent = Array<[string, TailStateController, number]>;
 
 export type MatrixList = Map<string, MatrixItem>;

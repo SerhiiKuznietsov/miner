@@ -1,6 +1,6 @@
 import { Config } from "../config/game";
 import { DataType, tailStateObservable } from "../observable/tailState";
-import { StateNamesList } from "../states/type/type";
+import { StateNamesList } from "../stateControllers/states/type/type";
 import { createId } from "../utils/id";
 import { MineView } from "./view/mine";
 import { Cell } from "./cell";

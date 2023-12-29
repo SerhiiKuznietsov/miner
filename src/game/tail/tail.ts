@@ -1,13 +1,13 @@
 import { ActionName } from "../actions/actions";
-import { StateController } from "../controllers/state-controller";
+import { TailStateController } from "../stateControllers/tailStateController";
 import { tailStateObservable } from "../observable/tailState";
 
 export class Tail {
-  private _stateController: StateController;
+  private _stateController: TailStateController;
   private _id: string;
   private _around: number = 0;
 
-  constructor(stateController: StateController, id: string, around: number) {
+  constructor(stateController: TailStateController, id: string, around: number) {
     this._stateController = stateController;
     this._id = id;
     this._around = around;

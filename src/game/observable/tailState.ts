@@ -1,7 +1,7 @@
-import { StateName } from "../states/type/type";
+import { StateNameType } from "../stateControllers/states/type/type";
 import { Observable } from "./observable";
 
-export type DataType = [StateName, string, number?];
+export type DataType = [StateNameType, string, number?];
 
 class TailStateObservable extends Observable<DataType> {}
 

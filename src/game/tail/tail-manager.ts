@@ -3,7 +3,7 @@ import { Config } from "../config/game";
 import { Vector2 } from "../geometry/vector2";
 import { spawnTailMatrix } from "./matrix/matrix";
 import { GameEvent, gameObserver } from "../observable/gameEvent";
-import { StateNamesList } from "../states/type/type";
+import { StateNamesList } from "../stateControllers/states/type/type";
 import { createId, parseId } from "../utils/id";
 import { Tail } from "./tail";
 import {

@@ -1,6 +1,6 @@
 import { ActionList } from "./type/type";
 
-export abstract class State<A, S> {
+export class State<S, A> {
   public readonly name: S;
   protected _actions = new Map<A, S>();
 
