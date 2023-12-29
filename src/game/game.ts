@@ -22,6 +22,14 @@ export class Game {
   private _stateController = spawnGameStateController();
 
   public init(): this {
+    gameObserver.attach((stateName) => {
+      if (stateName == this._stateController.getActive().name) return;
+
+      throw new Error(
+        "State change notification bypasses game state change logic"
+      );
+    });
+
     gameStateObserver.attach(this.observerHandler.bind(this));
 
     this._gameInterface

@@ -68,6 +68,7 @@ export class TailManager {
     this._tails.clear();
     this._calculatedField.clear();
     this._firstClick = undefined;
+    this._openField = 0;
   }
 
   private createTails() {
