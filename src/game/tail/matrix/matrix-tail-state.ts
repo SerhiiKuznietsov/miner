@@ -1,9 +1,10 @@
-import { TailStateController } from "../../stateControllers/tailStateController";
 import {
-  spawnMineTailState,
   spawnAroundTailState,
   spawnEmptyTailState,
-} from "../../stateControllers/states/spawners";
+  spawnMineTailState,
+} from "../../stateControllers/states/spawners/tailStateControllerSpawner";
+import { TailStateController } from "../../stateControllers/tailStateController";
+
 import { MatrixItem } from "./matrix-item";
 
 export const createTailStateByMatrix = (
