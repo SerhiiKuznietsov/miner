@@ -46,39 +46,30 @@ export class Game {
 
   private observerHandler(data: GameActionNameType) {
     console.log(data);
-    console.log('active state:', this._stateController.getActive());
+    console.log("active state:", this._stateController.getActive());
 
     const newState = this._stateController.changeByActionThrowable(data);
 
-    console.log('active state after update:', this._stateController.getActive());
+    console.log(
+      "active state after update:",
+      this._stateController.getActive()
+    );
 
-    if (newState === GameStateList.readyToStart) {
-      gameObserver.notify(GameStateList.readyToStart);
-    }
+    gameObserver.notify(newState);
 
-    if (newState === GameStateList.start) {
-      gameObserver.notify(GameStateList.start);
-    }
+    console.log(
+      "active state after notify:",
+      this._stateController.getActive()
+    );
 
     if (newState === GameStateList.restart) {
-      gameObserver.notify(GameStateList.restart);
       gameStateObserver.notify(GameAction.toReadyToStart);
     }
 
-    if (newState === GameStateList.lose) {
-      gameObserver.notify(GameStateList.lose);
+    if (newState === GameStateList.lose || newState === GameStateList.win) {
       gameStateObserver.notify(GameAction.toEnd);
     }
 
-    if (newState === GameStateList.win) {
-      gameObserver.notify(GameStateList.win);
-      gameStateObserver.notify(GameAction.toEnd);
-    }
 
-    if (newState === GameStateList.end) {
-      gameObserver.notify(GameStateList.end);
-    }
-
-    console.log('active state after if block:', this._stateController.getActive());
   }
 }
