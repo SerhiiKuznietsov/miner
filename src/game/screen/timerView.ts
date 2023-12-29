@@ -7,10 +7,10 @@ export class ScreenTimer implements ScreenObject {
   ) as HTMLSpanElement;
 
   public init(): void {
-    timeObserver.attach(this.updateTimer.bind(this));
+    timeObserver.attach(this.draw.bind(this));
   }
 
-  private updateTimer(time: string): void {
+  private draw(time: string): void {
     this._element.textContent = time;
   }
 }

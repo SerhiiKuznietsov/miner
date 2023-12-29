@@ -1,7 +1,7 @@
 import { Config } from "./config/game";
 import { TailManager } from "./tail/tail-manager";
 import { Screen } from "./screen/screen";
-import { ScreenTimer } from "./screen/screenTimer";
+import { ScreenTimer } from "./screen/timerView";
 import { Field } from "./screen/fieldView";
 import { Face } from "./screen/faceView";
 import { TimerManager } from "./managers/timerManager";

@@ -7,10 +7,10 @@ export class CounterView implements ScreenObject {
   ) as HTMLSpanElement;
 
   public init(): void {
-    counterObserver.attach(this.updateTimer.bind(this));
+    counterObserver.attach(this.draw.bind(this));
   }
 
-  private updateTimer(count: number): void {
+  private draw(count: number): void {
     this._element.textContent = `${count}`;
   }
 }
