@@ -2,8 +2,8 @@ import { Config } from "./config/game";
 import { TailManager } from "./tail/tail-manager";
 import { Screen } from "./screen/screen";
 import { ScreenTimer } from "./screen/screenTimer";
-import { Field } from "./screen/field";
-import { Face } from "./screen/face";
+import { Field } from "./screen/fieldView";
+import { Face } from "./screen/faceView";
 import { TimerManager } from "./managers/timerManager";
 import { ManagerController } from "./managers/managerController";
 import { spawnGameStateController } from "./stateControllers/states/spawners/gameStateControllerSpawner";
@@ -14,6 +14,8 @@ import {
 } from "./stateControllers/states/type/type";
 import { gameStateObserver } from "./observable/gameState";
 import { gameObserver } from "./observable/gameEvent";
+import { CounterManager } from "./managers/counterManager";
+import { CounterView } from "./screen/counterView";
 
 export class Game {
   private _config = new Config();
@@ -28,11 +30,13 @@ export class Game {
       .add(new Field(this._config))
       .add(new ScreenTimer())
       .add(new Face())
+      .add(new CounterView())
       .init();
 
     this._managerController
-      .add(new TimerManager())
       .add(new TailManager(this._config))
+      .add(new CounterManager(this._config))
+      .add(new TimerManager())
       .init();
 
     gameStateObserver.notify(GameAction.toReadyToStart);
