@@ -66,6 +66,7 @@ export class TailManager {
 
   private clear(): void {
     this._tails.clear();
+    this._calculatedField.clear();
     this._firstClick = undefined;
   }
 
