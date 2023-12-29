@@ -1,9 +1,9 @@
 import { Config } from "../config/game";
+import { IInterfaceObject } from "../gameInterface";
 import { ClickEvent, clickEventObserver } from "../observable/clickHandlers";
 import { convertSizeToPx } from "../utils/px";
 import { CellController } from "./cellController";
-import { ScreenObject } from "./screen";
-export class Field implements ScreenObject {
+export class Field implements IInterfaceObject {
   private _body: HTMLDivElement = document.querySelector(
     ".miner__body"
   ) as HTMLDivElement;
@@ -46,19 +46,24 @@ export class Field implements ScreenObject {
     });
   }
 
+  private createField() {
+    this._cellController.init(this._body);
+  }
+
   public init(): void {
     this.resize();
-    this._cellController.init(this._body);
+    this.createField();
     this.onHandlers();
   }
 
   public restart(): void {
     this.clear();
-    this.offHandlers();
-    this.init();
+    this.offHandlers(); // TODO - remove after create handlers class
+    this.createField();
+    this.onHandlers();
   }
 
-  public stop(): void {
+  public end(): void {
     this.offHandlers();
   }
 

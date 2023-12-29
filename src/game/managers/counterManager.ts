@@ -1,11 +1,11 @@
 import { Config } from "../config/game";
+import { IInterfaceObject } from "../gameInterface";
 import { counterObserver } from "../observable/counter";
 import { DataType, tailStateObservable } from "../observable/tailState";
 import { StateNamesList } from "../stateControllers/states/type/type";
 import { Counter } from "./counter";
-import { ManagerObject } from "./managerController";
 
-export class CounterManager implements ManagerObject {
+export class CounterManager implements IInterfaceObject {
   private _counter: Counter;
 
   constructor(config: Config) {
@@ -45,6 +45,4 @@ export class CounterManager implements ManagerObject {
   public start(): void {
     this._counter.init();
   }
-
-  public stop(): void {}
 }

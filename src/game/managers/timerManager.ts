@@ -1,8 +1,8 @@
+import { IInterfaceObject } from "../gameInterface";
 import { timeObserver } from "../observable/time";
-import { ManagerObject } from "./managerController";
 import { Timer } from "./timer";
 
-export class TimerManager implements ManagerObject {
+export class TimerManager implements IInterfaceObject {
   private _timer = new Timer(this.updateTime.bind(this));
 
   private updateTime(time: string): void {
@@ -22,7 +22,7 @@ export class TimerManager implements ManagerObject {
     this._timer.on();
   }
 
-  public stop(): void {
+  public end(): void {
     this._timer.off();
   }
 }

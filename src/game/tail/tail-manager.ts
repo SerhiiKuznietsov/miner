@@ -70,7 +70,7 @@ export class TailManager {
     this._firstClick = undefined;
   }
 
-  public init(): void {
+  private createTails() {
     const tailMatrix = spawnTailMatrix(this._config, this._firstClick);
 
     tailMatrix.forEach((tailMatrixItem) => {
@@ -80,13 +80,17 @@ export class TailManager {
     });
   }
 
+  public init(): void {
+    this.createTails();
+  }
+
   public restart(): void {
     this.clear();
-    this.init();
+    this.createTails();
   }
 
   public start(): void {
-    this.init();
+    this.createTails();
   }
 
   public useActionById(id: string, actionName: ActionName): void {

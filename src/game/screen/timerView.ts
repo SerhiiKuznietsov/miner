@@ -1,10 +1,14 @@
+import { IInterfaceObject } from "../gameInterface";
 import { timeObserver } from "../observable/time";
-import { ScreenObject } from "./screen";
 
-export class ScreenTimer implements ScreenObject {
+export class ScreenTimer implements IInterfaceObject {
   private _element: HTMLSpanElement = document.querySelector(
     ".miner__timer span"
   ) as HTMLSpanElement;
+
+  constructor(defaultValue: string) {
+    this.draw(defaultValue);
+  }
 
   public init(): void {
     timeObserver.attach(this.draw.bind(this));
