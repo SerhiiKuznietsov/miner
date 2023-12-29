@@ -26,6 +26,32 @@ export class StateController<S, A> {
     return stateName;
   }
 
+  public changeByAction(actionName: A): S | undefined {
+    const activeState = this.getActive();
+
+    const newState = activeState.useAction(actionName);
+
+    if (newState) {
+      this.change(newState);
+    }
+
+    return newState;
+  }
+
+  public changeByActionThrowable(actionName: A): S {
+    const newState = this.changeByAction(actionName);
+
+    if (!newState) {
+      throw new Error(
+        `action named "${actionName}" did not change the state "${
+          this.getActive().name
+        }"`
+      );
+    }
+
+    return newState;
+  }
+
   public getActive(): State<S, A> {
     const activeState = this._state.get(this._activeState);
 

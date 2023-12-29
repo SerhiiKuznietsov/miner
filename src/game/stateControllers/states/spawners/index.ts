@@ -4,7 +4,6 @@ import { StateController } from "../../stateController";
 
 // { name: , actionToState: }
 export interface IStateControllerOptions<N, A> {
-  defaultState: N;
   statesOptionsList: Array<IStateOptions<N, A>>;
 }
 
@@ -23,9 +22,10 @@ const spawnState = <N, A>(
 };
 
 export const spawnStateController = <N, A>(
+  defaultStateName: N,
   options: IStateControllerOptions<N, A>
 ): StateController<N, A> => {
-  const { defaultState, statesOptionsList } = options;
+  const { statesOptionsList } = options;
 
   const statesList: StateList<State<N, A>> = [];
 
@@ -35,8 +35,10 @@ export const spawnStateController = <N, A>(
     );
   });
 
-  const stateController = new StateController<N, A>(defaultState, statesList);
+  const stateController = new StateController<N, A>(
+    defaultStateName,
+    statesList
+  );
 
   return stateController;
 };
-

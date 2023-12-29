@@ -2,8 +2,7 @@ import { ActionName, ActionNamesList } from "../actions/actions";
 import { Config } from "../config/game";
 import { Vector2 } from "../geometry/vector2";
 import { spawnTailMatrix } from "./matrix/matrix";
-import { GameEvent, gameObserver } from "../observable/gameEvent";
-import { StateNamesList } from "../stateControllers/states/type/type";
+import { GameAction, StateNamesList } from "../stateControllers/states/type/type";
 import { createId, parseId } from "../utils/id";
 import { Tail } from "./tail";
 import {
@@ -12,6 +11,7 @@ import {
   clickEventObserver,
 } from "../observable/clickHandlers";
 import { getAttrsWithEvent } from "../utils/html/click";
+import { gameStateObserver } from "../observable/gameState";
 
 export class TailManager {
   private _tails = new Map<string, Tail>();
@@ -44,7 +44,7 @@ export class TailManager {
 
       this._firstClick = new Vector2(x, y);
 
-      gameObserver.notify(GameEvent.start);
+      gameStateObserver.notify(GameAction.toStart);
     }
 
     let actionName: ActionName;
@@ -66,7 +66,7 @@ export class TailManager {
   }
 
   public init(): void {
-    const tailMatrix = spawnTailMatrix(this._config);
+    const tailMatrix = spawnTailMatrix(this._config, this._firstClick);
 
     tailMatrix.forEach((tailMatrixItem) => {
       const [id, StateController, around] = tailMatrixItem;
@@ -77,42 +77,24 @@ export class TailManager {
 
   public restart(): void {
     this.clear();
-    // this.init();
-
-    const tailMatrix = spawnTailMatrix(this._config);
-
-    tailMatrix.forEach((tailMatrixItem) => {
-      const [id, StateController, around] = tailMatrixItem;
-
-      this._tails.set(id, new Tail(StateController, id, around));
-    });
+    this.init();
   }
 
   public start(): void {
-    const vector2 = this._firstClick;
-
-    this.clear();
-
-    const tailMatrix = spawnTailMatrix(this._config, vector2);
-
-    tailMatrix.forEach((tailMatrixItem) => {
-      const [id, StateController, around] = tailMatrixItem;
-
-      this._tails.set(id, new Tail(StateController, id, around));
-    });
+    this.init();
   }
 
   public useActionById(id: string, actionName: ActionName): void {
     const newState = this.get(id).useAction(actionName);
 
     if (newState === StateNamesList.redMineState) {
-      gameObserver.notify(GameEvent.lose);
+      gameStateObserver.notify(GameAction.toLose);
     }
 
     this.openAround(id, newState);
 
     if (this._openField === this._config.needToOpen) {
-      gameObserver.notify(GameEvent.win);
+      gameStateObserver.notify(GameAction.toWin);
     }
   }
 

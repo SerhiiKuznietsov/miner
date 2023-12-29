@@ -1,4 +1,7 @@
-import { GameEvent, GameEventType, gameObserver } from "../observable/gameEvent";
+import {
+  gameObserver,
+} from "../observable/gameEvent";
+import { GameStateList, GameStateType } from "../stateControllers/states/type/type";
 
 export interface ManagerObject {
   init(): void;
@@ -36,11 +39,11 @@ export class ManagerController {
 
     this._managerList.add(manager);
 
-    if (manager[GameEvent.start]) {
+    if (manager[GameStateList.start]) {
       this._startList.add(manager as StartObject);
     }
 
-    if (manager[GameEvent.restart]) {
+    if (manager[GameStateList.restart]) {
       this._reStartList.add(manager as reStartObject);
     }
 
@@ -55,29 +58,29 @@ export class ManagerController {
     this._managerList.forEach((manager) => manager.init());
   }
 
-  private observerHandler(data: GameEventType) {
-    if (data === GameEvent.start) {
+  private observerHandler(data: GameStateType) {
+    if (data === GameStateList.start) {
       this._startList.forEach((instance) => {
         instance.start();
       });
       return;
     }
 
-    if (data === GameEvent.restart) {
+    if (data === GameStateList.restart) {
       this._reStartList.forEach((instance) => {
         instance.restart();
       });
       return;
     }
 
-    if (data === GameEvent.win) {
+    if (data === GameStateList.win) {
       this._stopList.forEach((instance) => {
         instance.stop();
       });
       return;
     }
 
-    if (data === GameEvent.lose) {
+    if (data === GameStateList.lose) {
       this._stopList.forEach((instance) => {
         instance.stop();
       });

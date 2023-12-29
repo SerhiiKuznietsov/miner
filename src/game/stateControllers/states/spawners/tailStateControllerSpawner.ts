@@ -9,8 +9,7 @@ const spawnTailStateController = spawnStateController<
 >;
 
 export const spawnEmptyTailState = (): TailStateController => {
-  return spawnTailStateController({
-    defaultState: StateNamesList.closeState,
+  return spawnTailStateController(StateNamesList.closeState, {
     statesOptionsList: [
       {
         name: StateNamesList.closeState,
@@ -41,8 +40,7 @@ export const spawnEmptyTailState = (): TailStateController => {
 };
 
 export const spawnAroundTailState = (): TailStateController => {
-  return spawnTailStateController({
-    defaultState: StateNamesList.closeState,
+  return spawnTailStateController(StateNamesList.closeState, {
     statesOptionsList: [
       {
         name: StateNamesList.closeState,
@@ -73,8 +71,7 @@ export const spawnAroundTailState = (): TailStateController => {
 };
 
 export const spawnMineTailState = (): TailStateController => {
-  return spawnTailStateController({
-    defaultState: StateNamesList.closeState,
+  return spawnTailStateController(StateNamesList.closeState, {
     statesOptionsList: [
       {
         name: StateNamesList.closeState,

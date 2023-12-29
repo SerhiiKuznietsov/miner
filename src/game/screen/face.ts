@@ -1,4 +1,10 @@
-import { GameEvent, GameEventType, gameObserver } from "../observable/gameEvent";
+import { gameObserver } from "../observable/gameEvent";
+import { gameStateObserver } from "../observable/gameState";
+import {
+  GameAction,
+  GameStateList,
+  GameStateType,
+} from "../stateControllers/states/type/type";
 import { ScreenObject } from "./screen";
 import { FaceView } from "./view/face";
 
@@ -6,20 +12,23 @@ export class Face implements ScreenObject {
   private _element: HTMLSpanElement = document.querySelector(
     ".miner__face span"
   ) as HTMLSpanElement;
+  private _handler = this.mouseDownHandler.bind(this);
 
-  private observerHandler(data: GameEventType) {
-    if (data === GameEvent.win) {
+  private observerHandler(data: GameStateType) {
+    if (data === GameStateList.win) {
       FaceView.setWin(this._element);
     }
 
-    if (data === GameEvent.lose) {
+    if (data === GameStateList.lose) {
       FaceView.setLose(this._element);
     }
   }
 
   private mouseDownHandler() {
+    this.offHandlers();
     this.pressed();
-    gameObserver.notify(GameEvent.restart);
+    gameStateObserver.notify(GameAction.toRestart);
+    this.onHandlers();
   }
 
   private mouseUpHandler() {
@@ -35,14 +44,19 @@ export class Face implements ScreenObject {
   }
 
   public init(): void {
-    this._element.addEventListener(
-      "mousedown",
-      this.mouseDownHandler.bind(this)
-    );
+    this.onHandlers();
     this._element.addEventListener("mouseup", this.mouseUpHandler.bind(this));
 
     gameObserver.attach(this.observerHandler.bind(this));
     this.unpressed();
+  }
+
+  private onHandlers() {
+    this._element.addEventListener("mousedown", this._handler);
+  }
+
+  private offHandlers() {
+    this._element.removeEventListener("mousedown", this._handler);
   }
 
   public start(): void {

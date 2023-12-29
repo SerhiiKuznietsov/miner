@@ -1,4 +1,5 @@
-import { GameEvent, GameEventType, gameObserver } from "../observable/gameEvent";
+import { gameObserver } from "../observable/gameEvent";
+import { GameStateList, GameStateType } from "../stateControllers/states/type/type";
 export interface ScreenObject {
   init(): void;
   start?(): void;
@@ -30,11 +31,11 @@ export class Screen {
   public add(instance: ScreenObject): this {
     this._instanceList.add(instance);
 
-    if (instance[GameEvent.start]) {
+    if (instance[GameStateList.start]) {
       this._startList.add(instance as StartObject);
     }
 
-    if (instance[GameEvent.restart]) {
+    if (instance[GameStateList.restart]) {
       this._reStartList.add(instance as reStartObject);
     }
 
@@ -45,29 +46,29 @@ export class Screen {
     return this;
   }
 
-  private observerHandler(data: GameEventType) {
-    if (data === GameEvent.start) {
+  private observerHandler(data: GameStateType) {
+    if (data === GameStateList.start) {
       this._startList.forEach((instance) => {
         instance.start();
       });
       return;
     }
 
-    if (data === GameEvent.restart) {
+    if (data === GameStateList.restart) {
       this._reStartList.forEach((instance) => {
         instance.restart();
       });
       return;
     }
 
-    if (data === GameEvent.win) {
+    if (data === GameStateList.win) {
       this._stopList.forEach((instance) => {
         instance.stop();
       });
       return;
     }
 
-    if (data === GameEvent.lose) {
+    if (data === GameStateList.lose) {
       this._stopList.forEach((instance) => {
         instance.stop();
       });
