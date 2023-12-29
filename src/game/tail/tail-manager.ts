@@ -2,7 +2,10 @@ import { ActionName, ActionNamesList } from "../actions/actions";
 import { Config } from "../config/game";
 import { Vector2 } from "../geometry/vector2";
 import { spawnTailMatrix } from "./matrix/matrix";
-import { GameAction, StateNamesList } from "../stateControllers/states/type/type";
+import {
+  GameAction,
+  StateNamesList,
+} from "../stateControllers/states/type/type";
 import { createId, parseId } from "../utils/id";
 import { Tail } from "./tail";
 import {
@@ -18,6 +21,7 @@ export class TailManager {
   private _config: Config;
   private _openField: number = 0;
   private _firstClick: Vector2 | undefined;
+  private _calculatedField = new Set<string>();
 
   constructor(config: Config) {
     this._config = config;
@@ -54,7 +58,7 @@ export class TailManager {
     } else if (eventName === ClickEvent.right) {
       actionName = ActionNamesList.rightClick;
     } else {
-      actionName = ActionNamesList.leftClick;
+      throw new Error(`Event name "${eventName}" not found`);
     }
 
     this.useActionById(id, actionName);
@@ -85,41 +89,53 @@ export class TailManager {
   }
 
   public useActionById(id: string, actionName: ActionName): void {
+    if (actionName === ActionNamesList.calc) {
+      if (!this._calculatedField.has(id)) {
+        this._calculatedField.add(id);
+      } else {
+        return;
+      }
+    }
+
     const newState = this.get(id).useAction(actionName);
+
+    if (!newState) return;
+
+    if (
+      newState === StateNamesList.aroundState ||
+      newState === StateNamesList.emptyState
+    ) {
+      this._openField++;
+      if (this._openField === this._config.needToOpen) {
+        gameStateObserver.notify(GameAction.toWin);
+      }
+    }
 
     if (newState === StateNamesList.redMineState) {
       gameStateObserver.notify(GameAction.toLose);
     }
 
-    this.openAround(id, newState);
-
-    if (this._openField === this._config.needToOpen) {
-      gameStateObserver.notify(GameAction.toWin);
-    }
-  }
-
-  private openAround(id: string, newState: string | undefined): void {
-    const [x, y] = parseId(id);
-
-    if (
-      newState === StateNamesList.emptyState ||
-      newState === StateNamesList.aroundState
-    ) {
-      this._openField++;
-    }
-
     if (newState !== StateNamesList.emptyState) return;
 
-    for (let i = x > 0 ? x - 1 : x; i <= x + 1 && i < this._config.cols; i++) {
-      for (
-        let j = y > 0 ? y - 1 : y;
-        j <= y + 1 && j < this._config.rows;
-        j++
-      ) {
-        const newId = createId(i, j);
-        const newState = this.get(newId).useAction(ActionNamesList.calc);
+    this.openAround(id);
+  }
 
-        this.openAround(newId, newState);
+  private openAround(id: string): void {
+    const [x, y] = parseId(id);
+
+    for (let i = 0; i < this._config.minesCheckArr.length; i++) {
+      const xAround = x + this._config.minesCheckArr[i][1];
+      const yAround = y + this._config.minesCheckArr[i][0];
+
+      if (
+        yAround > -1 &&
+        yAround < this._config.rows &&
+        xAround > -1 &&
+        xAround < this._config.cols
+      ) {
+        const newId = createId(xAround, yAround);
+
+        this.useActionById(newId, ActionNamesList.calc);
       }
     }
   }

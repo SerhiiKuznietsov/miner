@@ -16,7 +16,7 @@ export class StateController<S, A> {
     return this._state.has(stateName);
   }
 
-  public change(stateName: S): S {
+  private change(stateName: S): S {
     if (!this.has(stateName)) {
       throw new Error(`State with name ${stateName} not found`);
     }
