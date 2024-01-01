@@ -1,8 +1,22 @@
 import { Config } from "../config/game";
-import { IInterfaceObject } from "../gameInterface";
+import { IInterfaceObject } from "../logic";
 import { ClickEvent, clickEventObserver } from "../observable/clickHandlers";
 import { convertSizeToPx } from "../utils/px";
-import { CellController } from "./cellController";
+import { CellController } from "../screen/cellController";
+
+// TODO - create MouseEventHandler
+// class MouseEventHandler {
+//   public onClick() {
+
+//   }
+
+//   public onContextMenu() {}
+
+//   public onMouseUp() {}
+
+//   public onMouseDown() {}
+// }
+
 export class Field implements IInterfaceObject {
   private _body: HTMLDivElement = document.querySelector(
     ".miner__body"
@@ -12,7 +26,7 @@ export class Field implements IInterfaceObject {
   ) as HTMLDivElement;
   private _config: Config;
   private _cellController: CellController;
-  private _handlers: [string, EventListener][] = [
+  private _handlers: [string, (e: Event) => void][] = [
     [
       "click",
       (e: Event): void => {

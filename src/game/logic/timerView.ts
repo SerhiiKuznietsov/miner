@@ -1,4 +1,4 @@
-import { IInterfaceObject } from "../gameInterface";
+import { IInterfaceObject } from "../logic";
 import { timeObserver } from "../observable/time";
 
 export class ScreenTimer implements IInterfaceObject {

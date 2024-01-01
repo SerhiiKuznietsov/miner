@@ -1,4 +1,4 @@
-import { IInterfaceObject } from "../gameInterface";
+import { IInterfaceObject } from "../logic";
 import { counterObserver } from "../observable/counter";
 
 export class CounterView implements IInterfaceObject {

@@ -16,7 +16,7 @@ type WinType = Required<Pick<IInterfaceObject, "win">>;
 type LoseType = Required<Pick<IInterfaceObject, "lose">>;
 type EndType = Required<Pick<IInterfaceObject, "end">>;
 
-export class GameInterface {
+export class Logic {
   private _instanceList = new Set<IInterfaceObject>();
   private _startList = new Set<StartType>();
   private _reStartList = new Set<ReStartType>();

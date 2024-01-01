@@ -1,8 +1,10 @@
-import { IInterfaceObject } from "../gameInterface";
+import { IInterfaceObject } from "../logic";
 import { gameStateObserver } from "../observable/gameState";
 import { GameAction } from "../stateControllers/states/type/type";
-import { FaceView } from "./view/face";
+import { FaceView } from "../screen/view/face";
 
+
+// TODO - put mouse handler code from here
 export class Face implements IInterfaceObject {
   private _element: HTMLSpanElement = document.querySelector(
     ".miner__face span"
@@ -31,7 +33,9 @@ export class Face implements IInterfaceObject {
     this.setUnpressed();
   }
 
-  private onHandlers() {}
+  private onHandlers() {
+    this._element.addEventListener("mousedown", this._handler);
+  }
 
   private offHandlers() {
     this._element.removeEventListener("mousedown", this._handler);

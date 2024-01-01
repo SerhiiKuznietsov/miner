@@ -1,6 +1,6 @@
-import { IInterfaceObject } from "../gameInterface";
+import { IInterfaceObject } from "../logic";
 import { timeObserver } from "../observable/time";
-import { Timer } from "./timer";
+import { Timer } from "../managers/timer";
 
 export class TimerManager implements IInterfaceObject {
   private _timer = new Timer(this.updateTime.bind(this));

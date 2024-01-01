@@ -12,3 +12,5 @@ export type ActionName =
   | ActionNamesList.lose
   | ActionNamesList.win
   | ActionNamesList.calc;
+
+// TODO - put this code from here
