@@ -1,4 +1,4 @@
-import { IInterfaceObject } from "../logic";
+import { IInterfaceObject } from "../gameLogic";
 import { gameStateObserver } from "../observable/gameState";
 import { GameAction } from "../stateControllers/states/type/type";
 import { FaceView } from "../screen/view/face";

@@ -1,5 +1,5 @@
 import { Config } from "../config/game";
-import { IInterfaceObject } from "../logic";
+import { IInterfaceObject } from "../gameLogic";
 import { counterObserver } from "../observable/counter";
 import { DataType, tailStateObservable } from "../observable/tailState";
 import { StateNamesList } from "../stateControllers/states/type/type";

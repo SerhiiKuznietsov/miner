@@ -1,4 +1,4 @@
-import { IInterfaceObject } from "../logic";
+import { IInterfaceObject } from "../gameLogic";
 import { timeObserver } from "../observable/time";
 import { Timer } from "../managers/timer";
 

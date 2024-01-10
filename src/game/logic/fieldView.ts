@@ -1,5 +1,5 @@
 import { Config } from "../config/game";
-import { IInterfaceObject } from "../logic";
+import { IInterfaceObject } from "../gameLogic";
 import { ClickEvent, clickEventObserver } from "../observable/clickHandlers";
 import { convertSizeToPx } from "../utils/px";
 import { CellController } from "../screen/cellController";

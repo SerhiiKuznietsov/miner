@@ -13,12 +13,12 @@ import { gameStateObserver } from "./observable/gameState";
 import { gameObserver } from "./observable/gameEvent";
 import { CounterManager } from "./logic/counterManager";
 import { CounterView } from "./logic/counterView";
-import { Logic } from "./logic";
+import { GameLogic } from "./gameLogic";
 import { GameStateController } from "./stateControllers/gameStateController";
 
 export class Game {
   private _config = new Config();
-  private _gameLogic = new Logic();
+  private _gameLogic = new GameLogic();
   private _stateController = new GameStateController();
 
   public init(): this {
