@@ -4,7 +4,6 @@ import { ScreenTimer } from "./logic/timerView";
 import { Field } from "./logic/fieldView";
 import { Face } from "./logic/faceView";
 import { TimerManager } from "./logic/timerManager";
-import { spawnGameStateController } from "./stateControllers/states/spawners/gameStateControllerSpawner";
 import {
   GameAction,
   GameActionNameType,
@@ -15,15 +14,16 @@ import { gameObserver } from "./observable/gameEvent";
 import { CounterManager } from "./logic/counterManager";
 import { CounterView } from "./logic/counterView";
 import { Logic } from "./logic";
+import { GameStateController } from "./stateControllers/gameStateController";
 
 export class Game {
   private _config = new Config();
   private _gameLogic = new Logic();
-  private _stateController = spawnGameStateController();
+  private _stateController = new GameStateController();
 
   public init(): this {
     gameObserver.attach((stateName) => {
-      if (stateName === this._stateController.getActive().name) return;
+      if (this._stateController.isActiveState(stateName)) return;
 
       throw new Error(
         "State change notification bypasses game state change logic"

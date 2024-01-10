@@ -1,5 +1,5 @@
 import { ActionName } from "../actions/actions";
-import { TailStateController } from "../stateControllers/tailStateController";
+import { TailStateController } from "../stateControllers/tailStateController/tailStateController";
 import { tailStateObservable } from "../observable/tailState";
 
 export class Tail {

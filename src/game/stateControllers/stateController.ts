@@ -26,6 +26,10 @@ export class StateController<S, A> {
     return stateName;
   }
 
+  public isActiveState(stateName: S): boolean {
+    return this._activeState === stateName;
+  }
+
   public changeByAction(actionName: A): S | undefined {
     const activeState = this.getActive();
 
