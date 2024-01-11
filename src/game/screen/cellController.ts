@@ -36,41 +36,41 @@ export class CellController {
   }
 
   private observerHandler(data: DataType) {
-    const [stateNames, id, around] = data;
+    const { newState, id, around } = data;
 
     const cell = this.getCellById(id);
 
-    if (stateNames === StateNamesList.aroundState) {
+    if (newState === StateNamesList.aroundState) {
       MineView.setImageType(cell.element, around);
       return;
     }
 
-    if (stateNames === StateNamesList.closeState) {
+    if (newState === StateNamesList.closeState) {
       MineView.setImageClosed(cell.element);
       return;
     }
 
-    if (stateNames === StateNamesList.emptyState) {
+    if (newState === StateNamesList.emptyState) {
       MineView.setImageType(cell.element);
       return;
     }
 
-    if (stateNames === StateNamesList.falseFlagState) {
+    if (newState === StateNamesList.falseFlagState) {
       MineView.setImageMineWrong(cell.element);
       return;
     }
 
-    if (stateNames === StateNamesList.flagState) {
+    if (newState === StateNamesList.flagState) {
       MineView.setImageFlag(cell.element);
       return;
     }
 
-    if (stateNames === StateNamesList.mineState) {
+    if (newState === StateNamesList.mineState) {
       MineView.setImageMine(cell.element);
       return;
     }
 
-    if (stateNames === StateNamesList.redMineState) {
+    if (newState === StateNamesList.redMineState) {
       MineView.setImageMineRed(cell.element);
       return;
     }

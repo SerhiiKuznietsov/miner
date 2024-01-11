@@ -21,15 +21,15 @@ export class CounterManager implements IInterfaceObject {
   }
 
   private observerHandler(data: DataType) {
-    const [stateName] = data;
+    const { newState, prevState } = data;
 
-    if (stateName === StateNamesList.closeState) {
-      this._counter.increment();
+    if (newState === StateNamesList.flagState) {
+      this._counter.decrement();
       return;
     }
 
-    if (stateName === StateNamesList.flagState) {
-      this._counter.decrement();
+    if (prevState === StateNamesList.flagState) {
+      this._counter.increment();
       return;
     }
   }
