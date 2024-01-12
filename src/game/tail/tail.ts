@@ -1,6 +1,7 @@
 import { ActionName } from "../actions/actions";
 import { TailStateController } from "../stateControllers/tailStateController/tailStateController";
 import { tailStateObservable } from "../observable/tailState";
+import { StateNameType } from "../stateControllers/states/type/type";
 
 export class Tail {
   private _stateController: TailStateController;
@@ -17,7 +18,7 @@ export class Tail {
     this._around = around;
   }
 
-  useAction(actionName: ActionName): string | undefined {
+  useAction(actionName: ActionName): StateNameType | undefined {
     const prevState = this._stateController.getActive().name
 
     const newState = this._stateController.changeByAction(actionName);

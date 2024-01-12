@@ -15,6 +15,8 @@ import { CounterManager } from "./logic/counterManager";
 import { CounterView } from "./logic/counterView";
 import { GameLogic } from "./gameLogic";
 import { GameStateController } from "./stateControllers/gameStateController";
+import { LossManager } from "./logic/lossManager";
+import { VictoryManager } from "./logic/victoryManager";
 
 export class Game {
   private _config = new Config();
@@ -33,6 +35,8 @@ export class Game {
     gameStateObserver.attach(this.observerHandler.bind(this));
 
     this._gameLogic
+      .add(new VictoryManager(this._config))
+      .add(new LossManager())
       .add(new TailManager(this._config))
       .add(new CounterManager(this._config))
       .add(new TimerManager())
@@ -47,7 +51,7 @@ export class Game {
     return this;
   }
 
-  private observerHandler(data: GameActionNameType) {
+  private observerHandler(data: GameActionNameType): void {
     const newState = this._stateController.changeByActionThrowable(data);
 
     gameObserver.notify(newState);

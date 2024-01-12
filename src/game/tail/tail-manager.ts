@@ -19,9 +19,8 @@ import { gameStateObserver } from "../observable/gameState";
 export class TailManager {
   private _tails = new Map<string, Tail>();
   private _config: Config;
-  private _openField: number = 0;
   private _firstClick: Vector2 | undefined;
-  private _calculatedField = new Set<string>();
+  private _calculatedTails = new Set<string>();
 
   constructor(config: Config) {
     this._config = config;
@@ -60,9 +59,8 @@ export class TailManager {
 
   private clear(): void {
     this._tails.clear();
-    this._calculatedField.clear();
+    this._calculatedTails.clear();
     this._firstClick = undefined;
-    this._openField = 0;
   }
 
   private createTails(): void {
@@ -90,8 +88,8 @@ export class TailManager {
 
   public useActionById(id: string, actionName: ActionName): void {
     if (actionName === ActionNamesList.calc) {
-      if (!this._calculatedField.has(id)) {
-        this._calculatedField.add(id);
+      if (!this._calculatedTails.has(id)) {
+        this._calculatedTails.add(id);
       } else {
         return;
       }
@@ -99,23 +97,7 @@ export class TailManager {
 
     const newState = this.get(id).useAction(actionName);
 
-    if (!newState) return;
-
-    if (
-      newState === StateNamesList.aroundState ||
-      newState === StateNamesList.emptyState
-    ) {
-      this._openField++;
-      if (this._openField === this._config.needToOpen) {
-        gameStateObserver.notify(GameAction.toWin);
-      }
-    }
-
-    if (newState === StateNamesList.redMineState) {
-      gameStateObserver.notify(GameAction.toLose);
-    }
-
-    if (newState !== StateNamesList.emptyState) return;
+    if (!newState && newState !== StateNamesList.emptyState) return;
 
     this.openAround(id);
   }
