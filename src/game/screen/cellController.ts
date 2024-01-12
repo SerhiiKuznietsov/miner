@@ -1,5 +1,5 @@
 import { Config } from "../config/game";
-import { DataType, tailStateObservable } from "../observable/tailState";
+import { TailDataType, tailStateObservable } from "../observable/tailState";
 import { StateNamesList } from "../stateControllers/states/type/type";
 import { createId } from "../utils/id";
 import { MineView } from "./view/mine";
@@ -35,7 +35,7 @@ export class CellController {
     tailStateObservable.attach(this.observerHandler.bind(this));
   }
 
-  private observerHandler(data: DataType) {
+  private observerHandler(data: TailDataType) {
     const { newState, id, around } = data;
 
     const cell = this.getCellById(id);

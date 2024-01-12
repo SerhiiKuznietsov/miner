@@ -11,13 +11,13 @@ export class Face implements IInterfaceObject {
   ) as HTMLSpanElement;
   private _handler = this.mouseDownHandler.bind(this);
 
-  private mouseDownHandler() {
+  private mouseDownHandler(): void {
     this.offHandlers();
     FaceView.setPressed(this._element);
     this.onHandlers();
   }
 
-  private mouseUpHandler() {
+  private mouseUpHandler(): void {
     gameStateObserver.notify(GameAction.toRestart);
 
     this.setUnpressed();

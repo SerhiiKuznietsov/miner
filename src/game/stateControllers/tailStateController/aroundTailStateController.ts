@@ -1,6 +1,6 @@
 import { TailStateController } from "./tailStateController";
 import { ActionNamesList } from "../../actions/actions";
-import { TailState } from "../states/tail/tailState";
+import { TailState } from "../states/tailState";
 import { StateNamesList } from "../states/type/type";
 
 export class AroundTailStateController extends TailStateController {

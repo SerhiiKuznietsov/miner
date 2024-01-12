@@ -19,14 +19,14 @@ export class GameLogic {
     [GameStateList.lose, []],
     [GameStateList.end, []],
   ]);
-  private _instanceList = new Set<IInterfaceObject>();
+  private _instancesList = new Set<IInterfaceObject>();
 
   constructor() {
     gameObserver.attach(this.observerHandler.bind(this));
   }
 
   public add(instance: IInterfaceObject): this {
-    this._instanceList.add(instance);
+    this._instancesList.add(instance);
 
     this._interactionList.forEach((arr, key) => {
 
@@ -38,15 +38,15 @@ export class GameLogic {
     return this;
   }
 
-  private observerHandler(data: GameStateType) {
-    const instanceList = this._interactionList.get(data);
+  private observerHandler(stateName: GameStateType): void {
+    const instanceList = this._interactionList.get(stateName);
 
     if (!instanceList?.length) return;
 
-    instanceList.forEach((instance: any) => instance[data]());
+    instanceList.forEach((instance: any) => instance[stateName]());
   }
 
   public init(): void {
-    this._instanceList.forEach((instance) => instance.init());
+    this._instancesList.forEach((instance) => instance.init());
   }
 }

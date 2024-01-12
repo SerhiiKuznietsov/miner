@@ -51,15 +51,9 @@ export class TailManager {
       gameStateObserver.notify(GameAction.toStart);
     }
 
-    let actionName: ActionName;
-
-    if (eventName === ClickEvent.left) {
-      actionName = ActionNamesList.leftClick;
-    } else if (eventName === ClickEvent.right) {
-      actionName = ActionNamesList.rightClick;
-    } else {
-      throw new Error(`Event name "${eventName}" not found`);
-    }
+    const actionName: ActionName = eventName === ClickEvent.left
+      ? ActionNamesList.leftClick
+      : ActionNamesList.rightClick;
 
     this.useActionById(id, actionName);
   }
@@ -71,7 +65,7 @@ export class TailManager {
     this._openField = 0;
   }
 
-  private createTails() {
+  private createTails(): void {
     const tailMatrix = spawnTailMatrix(this._config, this._firstClick);
 
     tailMatrix.forEach((tailMatrixItem) => {

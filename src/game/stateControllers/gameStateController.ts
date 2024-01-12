@@ -1,6 +1,6 @@
 import { GameAction, GameActionNameType, GameStateList, GameStateType } from "./states/type/type";
 import { StateController } from "./stateController";
-import { GameState } from "./states/game/gameState";
+import { GameState } from "./states/gameState";
 
 export class GameStateController extends StateController<
   GameStateType,
