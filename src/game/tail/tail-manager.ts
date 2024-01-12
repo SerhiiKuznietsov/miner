@@ -97,7 +97,7 @@ export class TailManager {
 
     const newState = this.get(id).useAction(actionName);
 
-    if (!newState && newState !== StateNamesList.emptyState) return;
+    if (!newState || newState !== StateNamesList.emptyState) return;
 
     this.openAround(id);
   }
