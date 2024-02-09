@@ -10,6 +10,7 @@ export interface IInterfaceObject {
   [GameStateList.lose]?(): void;
   [GameStateList.end]?(): void;
 }
+// TODO - split interfaces into several
 
 export class GameLogic {
   private _interactionList = new Map<GameStateType, IInterfaceObject[]>([

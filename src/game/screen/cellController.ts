@@ -40,6 +40,7 @@ export class CellController {
 
     const cell = this.getCellById(id);
 
+    // TODO - fixed this code
     if (newState === StateNamesList.aroundState) {
       MineView.setImageType(cell.element, around);
       return;
