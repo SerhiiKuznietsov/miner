@@ -15,7 +15,7 @@ export const spawnTailMatrix = (
   list.forEach((matrixItem) => {
     const state = createTailStateByMatrix(matrixItem);
 
-    result.push([matrixItem.id, state, matrixItem.around]);
+    result.push({ ...matrixItem, state, size: config.tileSize });
   });
 
   return result;

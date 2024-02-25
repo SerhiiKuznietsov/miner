@@ -1,13 +1,11 @@
 export class Cell {
-  // private _element: HTMLDivElement;
-  public readonly element: HTMLDivElement;
+  private _element: HTMLDivElement;
 
   constructor(element: HTMLDivElement) {
-    // this._element = element;
-    this.element = element;
+    this._element = element;
   }
 
   public setAttrValue(value: string) {
-    this.element.setAttribute("data-img", value);
+    this._element.setAttribute("data-img", value);
   }
 }

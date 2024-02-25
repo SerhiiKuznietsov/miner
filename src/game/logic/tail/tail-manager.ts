@@ -12,6 +12,7 @@ import { ClickEvent, ClickEventObserverDataType } from "./type/type";
 import { getAttrsWithEvent } from "./utils/click";
 import { gameStateObserver } from "../../observable/gameState";
 import { FieldView } from "../field/fieldView";
+import { MatrixGenerateContent } from "./matrix/type/type";
 
 export class TailManager {
   private _tails = new Map<string, Tail>();
@@ -62,14 +63,16 @@ export class TailManager {
     this._firstClick = undefined;
   }
 
-  private createTails(): void {
+  private createTails(): MatrixGenerateContent {
     const tailMatrix = spawnTailMatrix(this._config, this._firstClick);
 
     tailMatrix.forEach((tailMatrixItem) => {
-      const [id, StateController, around] = tailMatrixItem;
+      const { id, state, around } = tailMatrixItem;
 
-      this._tails.set(id, new Tail(StateController, id, around));
+      this._tails.set(id, new Tail(state, id, around));
     });
+
+    return tailMatrix;
   }
 
   private openAround(id: string): void {
@@ -98,8 +101,8 @@ export class TailManager {
 
   public restart(): void {
     this.clear();
-    this.createTails();
-    this._view.restart();
+    const matrix = this.createTails();
+    this._view.restart(matrix);
   }
 
   public end(): void {
