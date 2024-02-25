@@ -1,6 +1,9 @@
 import { Config } from "../../config/game";
 import { IInterfaceObject } from "../../gameLogic";
-import { ClickEvent, clickEventObserver } from "../../observable/clickHandlers";
+import {
+  ClickEvent,
+  ClickEventObserverDataType,
+} from "../tail/type/type";
 import { convertSizeToPx } from "./utils/px";
 import { CellController } from "./cellController";
 
@@ -26,26 +29,31 @@ export class FieldView implements IInterfaceObject {
   ) as HTMLDivElement;
   private _config: Config;
   private _cellController: CellController;
+  private _clickHandler: (data: ClickEventObserverDataType) => void;
   private _handlers: [string, (e: Event) => void][] = [
     [
       "click",
       (e: Event): void => {
         e.preventDefault();
-        clickEventObserver.notify([ClickEvent.left, e]);
+        this._clickHandler([ClickEvent.left, e]);
       },
     ],
     [
       "contextmenu",
       (e: Event): void => {
         e.preventDefault();
-        clickEventObserver.notify([ClickEvent.right, e]);
+        this._clickHandler([ClickEvent.right, e]);
       },
     ],
   ];
 
-  constructor(config: Config) {
+  constructor(
+    config: Config,
+    clickHandler: (data: ClickEventObserverDataType) => void
+  ) {
     this._config = config;
     this._cellController = new CellController(config);
+    this._clickHandler = clickHandler;
   }
 
   private onHandlers() {

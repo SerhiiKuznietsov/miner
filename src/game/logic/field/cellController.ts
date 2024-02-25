@@ -27,7 +27,7 @@ export class CellController {
       const id = createId(x, y);
       const cell = createFieldCell(x, y, this._config.tileSize);
 
-      this.add(id, new Cell(cell));
+      this._cellsList.set(id, new Cell(cell));
       body.append(cell);
     }
 
@@ -52,9 +52,5 @@ export class CellController {
     }
 
     return cell;
-  }
-
-  private add(id: string, cell: Cell) {
-    this._cellsList.set(id, cell);
   }
 }

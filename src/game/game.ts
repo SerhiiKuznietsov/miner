@@ -1,6 +1,5 @@
 import { Config } from "./config/game";
 import { TailManager } from "./logic/tail/tail-manager";
-import { FieldView } from "./logic/field/fieldView";
 import { FaceView } from "./logic/faceView";
 import { TimerManager } from "./logic/timer/timerManager";
 import {
@@ -44,7 +43,6 @@ export class Game {
 
     this._gameLogic
       .add(new FaceView())
-      .add(new FieldView(this._config))
       .add(new VictoryManager(this._config))
       .add(new LossManager())
       .add(new TailManager(this._config))

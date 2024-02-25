@@ -8,23 +8,21 @@ import {
 } from "../../stateControllers/states/type/type";
 import { createId, parseId } from "../../utils/id";
 import { Tail } from "./tail";
-import {
-  ClickEvent,
-  ClickEventObserverDataType,
-  clickEventObserver,
-} from "../../observable/clickHandlers";
+import { ClickEvent, ClickEventObserverDataType } from "./type/type";
 import { getAttrsWithEvent } from "./utils/click";
 import { gameStateObserver } from "../../observable/gameState";
+import { FieldView } from "../field/fieldView";
 
 export class TailManager {
   private _tails = new Map<string, Tail>();
   private _config: Config;
   private _firstClick: Vector2 | undefined;
   private _calculatedTails = new Set<string>();
+  private _view: FieldView;
 
   constructor(config: Config) {
     this._config = config;
-    clickEventObserver.attach(this.observerHandler.bind(this));
+    this._view = new FieldView(this._config, this.clickHandler.bind(this));
   }
 
   private get(id: string): Tail {
@@ -37,7 +35,7 @@ export class TailManager {
     return tail;
   }
 
-  private observerHandler(data: ClickEventObserverDataType): void {
+  private clickHandler(data: ClickEventObserverDataType): void {
     const [eventName, e] = data;
 
     const id = getAttrsWithEvent(e);
@@ -101,6 +99,11 @@ export class TailManager {
   public restart(): void {
     this.clear();
     this.createTails();
+    this._view.restart();
+  }
+
+  public end(): void {
+    this._view.end();
   }
 
   public useActionById(id: string, actionName: ActionName): void {
