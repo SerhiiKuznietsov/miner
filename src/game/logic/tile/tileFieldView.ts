@@ -1,23 +1,16 @@
-import { Config } from "../../config/game";
-import { convertSizeToPx } from "./utils/px";
 import { TileDataType } from "../../services/observable/tileState";
 import { getAttrValueByState } from "./utils/cellView";
 import { MatrixGenerateContent } from "./matrix/type/type";
 import { FieldEventHandler } from "./tileEventHandler";
 import { createCell } from "./utils/createCell";
 
-export class FieldView {
+export class TileFieldView {
   private _body: HTMLDivElement = document.querySelector(
     ".miner__body"
   ) as HTMLDivElement;
-  private _element: HTMLDivElement = document.querySelector(
-    ".miner"
-  ) as HTMLDivElement;
-  private _config: Config;
   private _clickController: FieldEventHandler;
 
-  constructor(config: Config, clickHandler: (data: Event) => void) {
-    this._config = config;
+  constructor(clickHandler: (data: Event) => void) {
     this._clickController = new FieldEventHandler(this._body, clickHandler);
   }
 
@@ -59,14 +52,7 @@ export class FieldView {
     });
   }
 
-  private resize(): void {
-    this._element.style.width = convertSizeToPx(
-      this._config.rows * this._config.tileSize
-    );
-  }
-
   public restart(matrix: MatrixGenerateContent): void {
-    this.resize();
     this.clear();
     this._clickController.off();
     this.fillCells(matrix);

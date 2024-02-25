@@ -10,7 +10,7 @@ import { createId, parseId } from "../../utils/id";
 import { Tile } from "./tile";
 import { getAttrsWithEvent } from "./utils/click";
 import { gameStateObserver } from "../../services/observable/gameState";
-import { FieldView } from "./tileFieldView";
+import { TileFieldView } from "./tileFieldView";
 import { MatrixGenerateContent } from "./matrix/type/type";
 
 export class TileManager {
@@ -18,11 +18,11 @@ export class TileManager {
   private _config: Config;
   private _firstClick: Vector2 | undefined;
   private _calculatedTiles = new Set<string>();
-  private _view: FieldView;
+  private _view: TileFieldView;
 
   constructor(config: Config) {
     this._config = config;
-    this._view = new FieldView(this._config, this.clickHandler.bind(this));
+    this._view = new TileFieldView(this.clickHandler.bind(this));
   }
 
   private get(id: string): Tile {
