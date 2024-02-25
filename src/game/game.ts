@@ -1,9 +1,9 @@
 import { Config } from "./config/game";
-import { TailManager } from "./tail/tail-manager";
-import { ScreenTimer } from "./logic/timerView";
-import { Field } from "./logic/fieldView";
+import { TailManager } from "./logic/tail/tail-manager";
+import { ScreenTimer } from "./logic/timer/timerView";
+import { Field } from "./logic/field/fieldView";
 import { Face } from "./logic/faceView";
-import { TimerManager } from "./logic/timerManager";
+import { TimerManager } from "./logic/timer/timerManager";
 import {
   GameAction,
   GameActionNameType,
@@ -11,8 +11,8 @@ import {
 } from "./stateControllers/states/type/type";
 import { gameStateObserver } from "./observable/gameState";
 import { gameObserver } from "./observable/gameEvent";
-import { CounterManager } from "./logic/counterManager";
-import { CounterView } from "./logic/counterView";
+import { CounterManager } from "./logic/counter/counterManager";
+import { CounterView } from "./logic/counter/counterView";
 import { GameLogic } from "./gameLogic";
 import { GameStateController } from "./stateControllers/gameStateController";
 import { LossManager } from "./logic/lossManager";
