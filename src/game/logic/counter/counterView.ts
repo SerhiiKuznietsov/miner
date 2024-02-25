@@ -10,11 +10,11 @@ export class CounterView implements IInterfaceObject {
     this.draw(defaultCount);
   }
 
-  public init(): void {
-    counterObserver.attach(this.draw.bind(this));
-  }
-
   private draw(count: number): void {
     this._element.textContent = `${count}`;
+  }
+
+  public init(): void {
+    counterObserver.attach(this.draw.bind(this));
   }
 }

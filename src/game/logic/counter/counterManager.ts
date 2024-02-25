@@ -34,11 +34,11 @@ export class CounterManager implements IInterfaceObject {
     this._counter.clear();
   }
 
-  public restart(): void {
+  public start(): void {
     this._counter.clear();
   }
 
-  public start(): void {
+  public restart(): void {
     this._counter.clear();
   }
 }

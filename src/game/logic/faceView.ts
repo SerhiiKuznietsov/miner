@@ -23,16 +23,6 @@ export class FaceView implements IInterfaceObject {
     this.setUnpressed();
   }
 
-  public restart(): void {
-    this.setUnpressed();
-  }
-
-  public init(): void {
-    this.onHandlers();
-    this._element.addEventListener("mouseup", this.mouseUpHandler.bind(this));
-    this.setUnpressed();
-  }
-
   private onHandlers() {
     this._element.addEventListener("mousedown", this._handler);
   }
@@ -41,7 +31,21 @@ export class FaceView implements IInterfaceObject {
     this._element.removeEventListener("mousedown", this._handler);
   }
 
+  private setUnpressed(): void {
+    this._element.setAttribute("data-img", "face_unpressed");
+  }
+
+  public init(): void {
+    this.onHandlers();
+    this._element.addEventListener("mouseup", this.mouseUpHandler.bind(this));
+    this.setUnpressed();
+  }
+
   public start(): void {
+    this.setUnpressed();
+  }
+
+  public restart(): void {
     this.setUnpressed();
   }
 
@@ -51,9 +55,5 @@ export class FaceView implements IInterfaceObject {
 
   public lose(): void {
     this._element.setAttribute("data-img", "face_lose");
-  }
-
-  private setUnpressed(): void {
-    this._element.setAttribute("data-img", "face_unpressed");
   }
 }

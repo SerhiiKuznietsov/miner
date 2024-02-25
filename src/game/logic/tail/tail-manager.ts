@@ -74,35 +74,6 @@ export class TailManager {
     });
   }
 
-  public init(): void {
-    this.createTails();
-  }
-
-  public restart(): void {
-    this.clear();
-    this.createTails();
-  }
-
-  public start(): void {
-    this.createTails();
-  }
-
-  public useActionById(id: string, actionName: ActionName): void {
-    if (actionName === ActionNamesList.calc) {
-      if (!this._calculatedTails.has(id)) {
-        this._calculatedTails.add(id);
-      } else {
-        return;
-      }
-    }
-
-    const newState = this.get(id).useAction(actionName);
-
-    if (!newState || newState !== StateNamesList.emptyState) return;
-
-    this.openAround(id);
-  }
-
   private openAround(id: string): void {
     const [x, y] = parseId(id);
 
@@ -121,5 +92,34 @@ export class TailManager {
         this.useActionById(newId, ActionNamesList.calc);
       }
     }
+  }
+
+  public init(): void {
+    this.createTails();
+  }
+
+  public start(): void {
+    this.createTails();
+  }
+
+  public restart(): void {
+    this.clear();
+    this.createTails();
+  }
+
+  public useActionById(id: string, actionName: ActionName): void {
+    if (actionName === ActionNamesList.calc) {
+      if (!this._calculatedTails.has(id)) {
+        this._calculatedTails.add(id);
+      } else {
+        return;
+      }
+    }
+
+    const newState = this.get(id).useAction(actionName);
+
+    if (!newState || newState !== StateNamesList.emptyState) return;
+
+    this.openAround(id);
   }
 }

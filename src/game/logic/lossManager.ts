@@ -7,15 +7,15 @@ import {
 } from "../stateControllers/states/type/type";
 
 export class LossManager implements IInterfaceObject {
-  public init() {
-    tailStateObservable.attach(this.observerHandler.bind(this));
-  }
-
   private observerHandler(data: TailDataType): void {
     const { newState } = data;
 
     if (newState !== StateNamesList.redMineState) return;
 
     gameStateObserver.notify(GameAction.toLose);
+  }
+
+  public init() {
+    tailStateObservable.attach(this.observerHandler.bind(this));
   }
 }

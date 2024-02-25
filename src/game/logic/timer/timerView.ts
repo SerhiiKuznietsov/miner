@@ -10,11 +10,11 @@ export class ScreenTimer implements IInterfaceObject {
     this.draw(defaultValue);
   }
 
-  public init(): void {
-    timeObserver.attach(this.draw.bind(this));
-  }
-
   private draw(time: string): void {
     this._element.textContent = time;
+  }
+
+  public init(): void {
+    timeObserver.attach(this.draw.bind(this));
   }
 }

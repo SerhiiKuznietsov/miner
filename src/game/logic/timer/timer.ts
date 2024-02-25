@@ -2,10 +2,10 @@ type DrawFunction = (data: string) => void;
 export class Timer {
   private _startTime = Date.now();
   private _loopTimer: any;
-  private _drawFunction: DrawFunction;
+  private _updateHandler: DrawFunction;
 
   constructor(drawFunction: DrawFunction) {
-    this._drawFunction = drawFunction;
+    this._updateHandler = drawFunction;
   }
 
   private calcTime() {
@@ -15,7 +15,12 @@ export class Timer {
     const minutes = Math.floor((currentTime - seconds) / 60);
     const subSecond = seconds < 10 ? "0" : "";
 
-    this._drawFunction(`${minutes}${subSecond}${seconds}`);
+    this._updateHandler(`${minutes}${subSecond}${seconds}`);
+  }
+
+  public init() {
+    this._startTime = Date.now();
+    this.calcTime();
   }
 
   public on() {
@@ -26,10 +31,5 @@ export class Timer {
 
   public off(): void {
     clearInterval(this._loopTimer);
-  }
-
-  public init() {
-    this._startTime = Date.now();
-    this.calcTime();
   }
 }

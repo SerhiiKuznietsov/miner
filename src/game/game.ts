@@ -23,6 +23,21 @@ export class Game {
   private _gameLogic = new GameLogic();
   private _stateController = new GameStateController();
 
+  private observerHandler(data: GameActionNameType): void {
+    const newState = this._stateController.changeByActionThrowable(data);
+
+    gameObserver.notify(newState);
+
+    // TODO - Consider reducing game statuses
+    if (newState === GameStateList.restart) {
+      gameStateObserver.notify(GameAction.toReadyToStart);
+    }
+
+    if (newState === GameStateList.lose || newState === GameStateList.win) {
+      gameStateObserver.notify(GameAction.toEnd);
+    }
+  }
+
   public init(): this {
     gameObserver.attach((stateName) => {
       if (this._stateController.isActiveState(stateName)) return;
@@ -49,20 +64,5 @@ export class Game {
     gameStateObserver.notify(GameAction.toReadyToStart);
 
     return this;
-  }
-
-  private observerHandler(data: GameActionNameType): void {
-    const newState = this._stateController.changeByActionThrowable(data);
-
-    gameObserver.notify(newState);
-
-    // TODO - Consider reducing game statuses
-    if (newState === GameStateList.restart) {
-      gameStateObserver.notify(GameAction.toReadyToStart);
-    }
-
-    if (newState === GameStateList.lose || newState === GameStateList.win) {
-      gameStateObserver.notify(GameAction.toEnd);
-    }
   }
 }

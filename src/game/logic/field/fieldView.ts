@@ -64,6 +64,16 @@ export class Field implements IInterfaceObject {
     this._cellController.init(this._body);
   }
 
+  private clear(): void {
+    this._body.textContent = "";
+  }
+
+  private resize(): void {
+    this._element.style.width = convertSizeToPx(
+      this._config.rows * this._config.tileSize
+    );
+  }
+
   public init(): void {
     this.resize();
     this.createField();
@@ -79,15 +89,5 @@ export class Field implements IInterfaceObject {
 
   public end(): void {
     this.offHandlers();
-  }
-
-  private clear(): void {
-    this._body.textContent = "";
-  }
-
-  private resize(): void {
-    this._element.style.width = convertSizeToPx(
-      this._config.rows * this._config.tileSize
-    );
   }
 }
