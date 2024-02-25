@@ -2,7 +2,7 @@ import { Config } from "./config/game";
 import { TailManager } from "./logic/tail/tail-manager";
 import { ScreenTimer } from "./logic/timer/timerView";
 import { Field } from "./logic/field/fieldView";
-import { Face } from "./logic/faceView";
+import { FaceView } from "./logic/faceView";
 import { TimerManager } from "./logic/timer/timerManager";
 import {
   GameAction,
@@ -42,7 +42,7 @@ export class Game {
       .add(new TimerManager())
       .add(new Field(this._config))
       .add(new ScreenTimer("000"))
-      .add(new Face())
+      .add(new FaceView())
       .add(new CounterView(this._config.minesCount))
       .init();
 
