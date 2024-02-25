@@ -11,13 +11,9 @@ export class CounterManager implements IInterfaceObject {
   constructor(config: Config) {
     this._counter = new Counter(
       config.minesCount,
-      this.updateCounter.bind(this)
+      counterObserver.notify.bind(counterObserver)
     );
     tailStateObservable.attach(this.observerHandler.bind(this));
-  }
-
-  private updateCounter(num: number): void {
-    counterObserver.notify(num);
   }
 
   private observerHandler(data: TailDataType) {
@@ -35,14 +31,14 @@ export class CounterManager implements IInterfaceObject {
   }
 
   public init(): void {
-    this._counter.init();
+    this._counter.clear();
   }
 
   public restart(): void {
-    this._counter.init();
+    this._counter.clear();
   }
 
   public start(): void {
-    this._counter.init();
+    this._counter.clear();
   }
 }

@@ -3,30 +3,31 @@ import { DrawFunction } from "./type/type";
 export class Counter {
   private _defaultValue: number;
   private _currentValue: number = 0;
-  private _drawFunction: DrawFunction;
+  private _updateHandler: DrawFunction;
 
   constructor(defaultValue: number = 0, drawFunction: DrawFunction) {
     this._defaultValue = defaultValue;
-    this._drawFunction = drawFunction;
+    this._updateHandler = drawFunction;
+    this.clear();
   }
 
-  private draw(): void {
-    this._drawFunction(this._currentValue);
-  }
-
-  public init(): void {
-    this._currentValue = this._defaultValue;
-    this.draw();
+  private update(): void {
+    this._updateHandler(this._currentValue);
   }
 
   public increment(): void {
     this._currentValue++;
-    this.draw();
+    this.update();
   }
 
   public decrement(): void {
     this._currentValue--;
 
-    this.draw();
+    this.update();
+  }
+
+  public clear() {
+    this._currentValue = this._defaultValue;
+    this.update();
   }
 }
