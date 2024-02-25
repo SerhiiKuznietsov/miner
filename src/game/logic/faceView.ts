@@ -2,7 +2,9 @@ import { IInterfaceObject } from "../gameLogic";
 import { gameStateObserver } from "../observable/gameState";
 import { GameAction } from "../stateControllers/states/type/type";
 
+// TODO - incapacitate code associated with facial images
 // TODO - put mouse handler code from here
+
 export class Face implements IInterfaceObject {
   private _element: HTMLSpanElement = document.querySelector(
     ".miner__face div"
