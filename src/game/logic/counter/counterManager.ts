@@ -1,7 +1,7 @@
 import { Config } from "../../config/game";
 import { IInterfaceObject } from "../../gameLogic";
-import { TileDataType, tileStateObservable } from "../../observable/tileState";
-import { StateNamesList } from "../../stateControllers/states/type/type";
+import { TileDataType, tileStateObservable } from "../../services/observable/tileState";
+import { StateNamesList } from "../../services/stateControllers/states/type/type";
 import { Counter } from "./counter";
 import { CounterView } from "./counterView";
 

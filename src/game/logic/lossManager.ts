@@ -1,10 +1,10 @@
 import { IInterfaceObject } from "../gameLogic";
-import { gameStateObserver } from "../observable/gameState";
-import { tileStateObservable, TileDataType } from "../observable/tileState";
+import { gameStateObserver } from "../services/observable/gameState";
+import { tileStateObservable, TileDataType } from "../services/observable/tileState";
 import {
   StateNamesList,
   GameAction,
-} from "../stateControllers/states/type/type";
+} from "../services/stateControllers/states/type/type";
 
 export class LossManager implements IInterfaceObject {
   constructor() {

@@ -1,4 +1,4 @@
-import { ActionName } from "../../actions/actions";
+import { ActionName } from "../../../actions/actions";
 import { StateController } from "../stateController";
 import { StateNameType } from "../states/type/type";
 

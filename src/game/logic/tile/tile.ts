@@ -1,6 +1,6 @@
 import { ActionName } from "../../actions/actions";
-import { TileStateController } from "../../stateControllers/tileStateController/tileStateController";
-import { TileDataType, tileStateObservable } from "../../observable/tileState";
+import { TileStateController } from "../../services/stateControllers/tileStateController/tileStateController";
+import { TileDataType, tileStateObservable } from "../../services/observable/tileState";
 
 export class Tile {
   private _stateController: TileStateController;

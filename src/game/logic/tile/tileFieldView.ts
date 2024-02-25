@@ -1,6 +1,6 @@
 import { Config } from "../../config/game";
 import { convertSizeToPx } from "./utils/px";
-import { TileDataType } from "../../observable/tileState";
+import { TileDataType } from "../../services/observable/tileState";
 import { getAttrValueByState } from "./utils/cellView";
 import { MatrixGenerateContent } from "./matrix/type/type";
 import { FieldEventHandler } from "./tileEventHandler";

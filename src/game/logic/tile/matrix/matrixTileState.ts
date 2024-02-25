@@ -1,7 +1,7 @@
-import { TileStateController } from "../../../stateControllers/tileStateController/tileStateController";
-import { AroundTileStateController } from "../../../stateControllers/tileStateController/aroundTileStateController";
-import { EmptyTileStateController } from "../../../stateControllers/tileStateController/emptyTileStateController";
-import { MineTileStateController } from "../../../stateControllers/tileStateController/mineTileStateController";
+import { TileStateController } from "../../../services/stateControllers/tileStateController/tileStateController";
+import { AroundTileStateController } from "../../../services/stateControllers/tileStateController/aroundTileStateController";
+import { EmptyTileStateController } from "../../../services/stateControllers/tileStateController/emptyTileStateController";
+import { MineTileStateController } from "../../../services/stateControllers/tileStateController/mineTileStateController";
 import { MatrixItem } from "./matrixItem";
 
 export const createTileStateByMatrix = (

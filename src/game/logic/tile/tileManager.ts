@@ -5,11 +5,11 @@ import { spawnTileMatrix } from "./matrix/matrix";
 import {
   GameAction,
   StateNamesList,
-} from "../../stateControllers/states/type/type";
+} from "../../services/stateControllers/states/type/type";
 import { createId, parseId } from "../../utils/id";
 import { Tile } from "./tile";
 import { getAttrsWithEvent } from "./utils/click";
-import { gameStateObserver } from "../../observable/gameState";
+import { gameStateObserver } from "../../services/observable/gameState";
 import { FieldView } from "./tileFieldView";
 import { MatrixGenerateContent } from "./matrix/type/type";
 

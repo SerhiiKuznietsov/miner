@@ -1,8 +1,8 @@
-import { gameObserver } from "./observable/gameEvent";
+import { gameObserver } from "./services/observable/gameEvent";
 import {
   GameStateList,
   GameStateType,
-} from "./stateControllers/states/type/type";
+} from "./services/stateControllers/states/type/type";
 
 export interface IInterfaceObject {
   [GameStateList.start]?(): void;

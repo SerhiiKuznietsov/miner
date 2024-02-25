@@ -6,12 +6,12 @@ import {
   GameAction,
   GameActionNameType,
   GameStateList,
-} from "./stateControllers/states/type/type";
-import { gameStateObserver } from "./observable/gameState";
-import { gameObserver } from "./observable/gameEvent";
+} from "./services/stateControllers/states/type/type";
+import { gameStateObserver } from "./services/observable/gameState";
+import { gameObserver } from "./services/observable/gameEvent";
 import { CounterManager } from "./logic/counter/counterManager";
 import { GameLogic } from "./gameLogic";
-import { GameStateController } from "./stateControllers/gameStateController";
+import { GameStateController } from "./services/stateControllers/gameStateController";
 import { LossManager } from "./logic/lossManager";
 import { VictoryManager } from "./logic/victoryManager";
 
