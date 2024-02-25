@@ -1,5 +1,8 @@
 import { gameObserver } from "./observable/gameEvent";
-import { GameStateList, GameStateType } from "./stateControllers/states/type/type";
+import {
+  GameStateList,
+  GameStateType,
+} from "./stateControllers/states/type/type";
 
 export interface IInterfaceObject {
   [GameStateList.init](): void;
@@ -30,11 +33,10 @@ export class GameLogic {
     this._instancesList.add(instance);
 
     this._interactionList.forEach((arr, key) => {
-
       if (instance[key] === undefined) return;
 
       arr.push(instance);
-    })
+    });
 
     return this;
   }

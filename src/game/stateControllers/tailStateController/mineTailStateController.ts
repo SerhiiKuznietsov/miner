@@ -12,7 +12,9 @@ export class MineTailStateController extends TailStateController {
         [ActionNamesList.win, StateNamesList.flagState],
         [ActionNamesList.lose, StateNamesList.mineState],
       ]),
-      new TailState(StateNamesList.flagState, [[ActionNamesList.rightClick, StateNamesList.closeState]]),
+      new TailState(StateNamesList.flagState, [
+        [ActionNamesList.rightClick, StateNamesList.closeState],
+      ]),
       new TailState(StateNamesList.redMineState),
       new TailState(StateNamesList.mineState),
     ]);

@@ -1,4 +1,5 @@
-type DrawFunction = (data: number) => void;
+import { DrawFunction } from "./type/type";
+
 export class Counter {
   private _defaultValue: number;
   private _currentValue: number = 0;

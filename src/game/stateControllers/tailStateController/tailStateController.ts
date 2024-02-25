@@ -5,4 +5,4 @@ import { StateNameType } from "../states/type/type";
 export class TailStateController extends StateController<
   StateNameType,
   ActionName
-> { }
+> {}

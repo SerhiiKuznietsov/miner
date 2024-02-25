@@ -1,4 +1,3 @@
-
 import { TailStateController } from "../../../stateControllers/tailStateController/tailStateController";
 import { AroundTailStateController } from "../../../stateControllers/tailStateController/aroundTailStateController";
 import { EmptyTailStateController } from "../../../stateControllers/tailStateController/emptyTailStateController";

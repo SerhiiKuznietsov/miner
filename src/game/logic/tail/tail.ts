@@ -19,13 +19,18 @@ export class Tail {
   }
 
   useAction(actionName: ActionName): StateNameType | undefined {
-    const prevState = this._stateController.getActive().name
+    const prevState = this._stateController.getActive().name;
 
     const newState = this._stateController.changeByAction(actionName);
 
     if (!newState) return;
 
-    tailStateObservable.notify({ newState, prevState, id: this._id, around: this._around });
+    tailStateObservable.notify({
+      newState,
+      prevState,
+      id: this._id,
+      around: this._around,
+    });
 
     return newState;
   }

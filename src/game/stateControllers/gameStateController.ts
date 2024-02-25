@@ -1,4 +1,9 @@
-import { GameAction, GameActionNameType, GameStateList, GameStateType } from "./states/type/type";
+import {
+  GameAction,
+  GameActionNameType,
+  GameStateList,
+  GameStateType,
+} from "./states/type/type";
 import { StateController } from "./stateController";
 import { GameState } from "./states/gameState";
 

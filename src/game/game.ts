@@ -56,7 +56,6 @@ export class Game {
 
     gameObserver.notify(newState);
 
-
     // TODO - Consider reducing game statuses
     if (newState === GameStateList.restart) {
       gameStateObserver.notify(GameAction.toReadyToStart);

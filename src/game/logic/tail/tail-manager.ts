@@ -50,9 +50,10 @@ export class TailManager {
       gameStateObserver.notify(GameAction.toStart);
     }
 
-    const actionName: ActionName = eventName === ClickEvent.left
-      ? ActionNamesList.leftClick
-      : ActionNamesList.rightClick;
+    const actionName: ActionName =
+      eventName === ClickEvent.left
+        ? ActionNamesList.leftClick
+        : ActionNamesList.rightClick;
 
     this.useActionById(id, actionName);
   }
