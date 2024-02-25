@@ -11,6 +11,12 @@ export class FaceView implements IInterfaceObject {
   ) as HTMLSpanElement;
   private _handler = this.mouseDownHandler.bind(this);
 
+  constructor() {
+    this.onHandlers();
+    this._element.addEventListener("mouseup", this.mouseUpHandler.bind(this));
+    this.setUnpressed();
+  }
+
   private mouseDownHandler(): void {
     this.offHandlers();
     this._element.setAttribute("data-img", "face_pressed");
@@ -33,12 +39,6 @@ export class FaceView implements IInterfaceObject {
 
   private setUnpressed(): void {
     this._element.setAttribute("data-img", "face_unpressed");
-  }
-
-  public init(): void {
-    this.onHandlers();
-    this._element.addEventListener("mouseup", this.mouseUpHandler.bind(this));
-    this.setUnpressed();
   }
 
   public start(): void {

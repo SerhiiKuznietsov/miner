@@ -13,6 +13,8 @@ export class VictoryManager implements IInterfaceObject {
 
   constructor(config: Config) {
     this._config = config;
+
+    tailStateObservable.attach(this.observerHandler.bind(this));
   }
 
   private observerHandler(data: TailDataType): void {
@@ -29,10 +31,6 @@ export class VictoryManager implements IInterfaceObject {
     if (this._openField !== this._config.needToOpen) return;
 
     gameStateObserver.notify(GameAction.toWin);
-  }
-
-  public init() {
-    tailStateObservable.attach(this.observerHandler.bind(this));
   }
 
   public restart(): void {

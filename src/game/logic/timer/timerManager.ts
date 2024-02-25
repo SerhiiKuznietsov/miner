@@ -1,13 +1,10 @@
 import { IInterfaceObject } from "../../gameLogic";
-import { timeObserver } from "../../observable/time";
 import { Timer } from "./timer";
+import { TimerView } from "./timerView";
 
 export class TimerManager implements IInterfaceObject {
-  private _timer = new Timer(timeObserver.notify.bind(timeObserver));
-
-  public init(): void {
-    this._timer.init();
-  }
+  private _timerView = new TimerView();
+  private _timer = new Timer(this._timerView.update.bind(this._timerView));
 
   public start(): void {
     this._timer.init();
@@ -15,6 +12,7 @@ export class TimerManager implements IInterfaceObject {
   }
 
   public restart(): void {
+    this._timer.off();
     this._timer.init();
   }
 

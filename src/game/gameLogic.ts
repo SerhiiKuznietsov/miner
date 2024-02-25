@@ -5,9 +5,7 @@ import {
 } from "./stateControllers/states/type/type";
 
 export interface IInterfaceObject {
-  [GameStateList.init](): void;
   [GameStateList.start]?(): void;
-  [GameStateList.readyToStart]?(): void;
   [GameStateList.restart]?(): void;
   [GameStateList.win]?(): void;
   [GameStateList.lose]?(): void;
@@ -23,15 +21,12 @@ export class GameLogic {
     [GameStateList.lose, []],
     [GameStateList.end, []],
   ]);
-  private _instancesList = new Set<IInterfaceObject>();
 
   constructor() {
     gameObserver.attach(this.observerHandler.bind(this));
   }
 
-  public add(instance: IInterfaceObject): this {
-    this._instancesList.add(instance);
-
+  public add(instance: any): this {
     this._interactionList.forEach((arr, key) => {
       if (instance[key] === undefined) return;
 
@@ -50,6 +45,8 @@ export class GameLogic {
   }
 
   public init(): void {
-    this._instancesList.forEach((instance) => instance.init());
+    const restartFunctionList = this._interactionList.get(GameStateList.restart);
+
+    restartFunctionList?.forEach((instance: any) => instance.restart());
   }
 }

@@ -1,5 +1,3 @@
-import { ActionName } from "../../../actions/actions";
-
 export enum StateNamesList {
   closeState = "closeState",
   redMineState = "redMineState",
@@ -12,7 +10,6 @@ export enum StateNamesList {
 
 export type StateList<S> = Array<S>;
 export type ActionList<A, S> = Array<[A, S]>;
-export type TailActionListType = ActionList<ActionName, StateNameType>;
 export type StateNameType =
   | StateNamesList.closeState
   | StateNamesList.redMineState
@@ -23,7 +20,6 @@ export type StateNameType =
   | StateNamesList.emptyState;
 
 export enum GameStateList {
-  init = "init",
   start = "start",
   readyToStart = "readyToStart",
   win = "win",
@@ -33,7 +29,6 @@ export enum GameStateList {
 }
 
 export type GameStateType =
-  | GameStateList.init
   | GameStateList.start
   | GameStateList.readyToStart
   | GameStateList.win
@@ -46,7 +41,6 @@ export type GameActionListType = ActionList<GameActionNameType, GameStateType>;
 export enum GameAction {
   toStart = "toStart",
   toRestart = "toRestart",
-  toReadyToStart = "toReadyToStart",
   toWin = "toWin",
   toLose = "toLose",
   toEnd = "toEnd",
@@ -57,5 +51,4 @@ export type GameActionNameType =
   | GameAction.toRestart
   | GameAction.toWin
   | GameAction.toLose
-  | GameAction.toReadyToStart
   | GameAction.toEnd;

@@ -1,7 +1,6 @@
 import { Config } from "./config/game";
 import { TailManager } from "./logic/tail/tail-manager";
-import { ScreenTimer } from "./logic/timer/timerView";
-import { Field } from "./logic/field/fieldView";
+import { FieldView } from "./logic/field/fieldView";
 import { FaceView } from "./logic/faceView";
 import { TimerManager } from "./logic/timer/timerManager";
 import {
@@ -12,7 +11,6 @@ import {
 import { gameStateObserver } from "./observable/gameState";
 import { gameObserver } from "./observable/gameEvent";
 import { CounterManager } from "./logic/counter/counterManager";
-import { CounterView } from "./logic/counter/counterView";
 import { GameLogic } from "./gameLogic";
 import { GameStateController } from "./stateControllers/gameStateController";
 import { LossManager } from "./logic/lossManager";
@@ -27,11 +25,6 @@ export class Game {
     const newState = this._stateController.changeByActionThrowable(data);
 
     gameObserver.notify(newState);
-
-    // TODO - Consider reducing game statuses
-    if (newState === GameStateList.restart) {
-      gameStateObserver.notify(GameAction.toReadyToStart);
-    }
 
     if (newState === GameStateList.lose || newState === GameStateList.win) {
       gameStateObserver.notify(GameAction.toEnd);
@@ -50,18 +43,14 @@ export class Game {
     gameStateObserver.attach(this.observerHandler.bind(this));
 
     this._gameLogic
+      .add(new FaceView())
+      .add(new FieldView(this._config))
       .add(new VictoryManager(this._config))
       .add(new LossManager())
       .add(new TailManager(this._config))
       .add(new CounterManager(this._config))
       .add(new TimerManager())
-      .add(new Field(this._config))
-      .add(new ScreenTimer("000"))
-      .add(new FaceView())
-      .add(new CounterView(this._config.minesCount))
       .init();
-
-    gameStateObserver.notify(GameAction.toReadyToStart);
 
     return this;
   }

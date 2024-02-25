@@ -8,7 +8,6 @@ export class Counter {
   constructor(defaultValue: number = 0, drawFunction: DrawFunction) {
     this._defaultValue = defaultValue;
     this._updateHandler = drawFunction;
-    this.clear();
   }
 
   private update(): void {

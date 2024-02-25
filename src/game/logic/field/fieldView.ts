@@ -17,7 +17,7 @@ import { CellController } from "./cellController";
 //   public onMouseDown() {}
 // }
 
-export class Field implements IInterfaceObject {
+export class FieldView implements IInterfaceObject {
   private _body: HTMLDivElement = document.querySelector(
     ".miner__body"
   ) as HTMLDivElement;
@@ -74,13 +74,8 @@ export class Field implements IInterfaceObject {
     );
   }
 
-  public init(): void {
-    this.resize();
-    this.createField();
-    this.onHandlers();
-  }
-
   public restart(): void {
+    this.resize();
     this.clear();
     this.offHandlers(); // TODO - remove after create handlers class
     this.createField();

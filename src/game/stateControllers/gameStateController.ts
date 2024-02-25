@@ -12,11 +12,8 @@ export class GameStateController extends StateController<
   GameActionNameType
 > {
   constructor() {
-    super(GameStateList.init, [
-      new GameState(GameStateList.init, [
-        [GameAction.toReadyToStart, GameStateList.readyToStart],
-      ]),
-      new GameState(GameStateList.readyToStart, [
+    super(GameStateList.restart, [
+      new GameState(GameStateList.restart, [
         [GameAction.toStart, GameStateList.start],
         [GameAction.toRestart, GameStateList.restart],
       ]),
@@ -24,10 +21,6 @@ export class GameStateController extends StateController<
         [GameAction.toRestart, GameStateList.restart],
         [GameAction.toWin, GameStateList.win],
         [GameAction.toLose, GameStateList.lose],
-      ]),
-
-      new GameState(GameStateList.restart, [
-        [GameAction.toReadyToStart, GameStateList.readyToStart],
       ]),
 
       new GameState(GameStateList.win, [[GameAction.toEnd, GameStateList.end]]),

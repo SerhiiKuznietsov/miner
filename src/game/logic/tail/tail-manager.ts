@@ -94,10 +94,6 @@ export class TailManager {
     }
   }
 
-  public init(): void {
-    this.createTails();
-  }
-
   public start(): void {
     this.createTails();
   }

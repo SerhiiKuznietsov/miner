@@ -7,6 +7,10 @@ import {
 } from "../stateControllers/states/type/type";
 
 export class LossManager implements IInterfaceObject {
+  constructor() {
+    tailStateObservable.attach(this.observerHandler.bind(this));
+  }
+
   private observerHandler(data: TailDataType): void {
     const { newState } = data;
 
@@ -15,7 +19,7 @@ export class LossManager implements IInterfaceObject {
     gameStateObserver.notify(GameAction.toLose);
   }
 
-  public init() {
-    tailStateObservable.attach(this.observerHandler.bind(this));
+  restart() {
+
   }
 }
