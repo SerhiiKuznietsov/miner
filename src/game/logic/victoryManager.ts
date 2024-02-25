@@ -5,7 +5,7 @@ import { tileStateObservable, TileDataType } from "../services/observable/tileSt
 import {
   StateNamesList,
   GameAction,
-} from "../services/stateControllers/states/type/type";
+} from "../services/stateControllers/type/type";
 
 export class VictoryManager implements IInterfaceObject {
   private _openField: number = 0;

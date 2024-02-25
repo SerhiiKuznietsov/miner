@@ -3,9 +3,9 @@ import {
   GameActionNameType,
   GameStateList,
   GameStateType,
-} from "./states/type/type";
-import { StateController } from "./stateController";
-import { GameState } from "./states/gameState";
+} from "../stateControllers/type/type";
+import { StateController } from "../stateControllers/stateController";
+import { GameState } from "./gameState";
 
 export class GameStateController extends StateController<
   GameStateType,

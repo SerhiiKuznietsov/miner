@@ -1,4 +1,4 @@
-import { TileStateController } from "../../../../services/stateControllers/tileStateController/tileStateController";
+import { TileStateController } from "../../tailState/tileStateController/tileStateController";
 import { MatrixItem } from "../matrixItem";
 
 export type MatrixItemContent = MatrixItem & {

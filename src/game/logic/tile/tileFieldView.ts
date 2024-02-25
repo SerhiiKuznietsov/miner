@@ -3,15 +3,27 @@ import { getAttrValueByState } from "./utils/cellView";
 import { MatrixGenerateContent } from "./matrix/type/type";
 import { FieldEventHandler } from "./tileEventHandler";
 import { createCell } from "./utils/createCell";
+import { getEventData } from "./utils/click";
+import { ClickTileHandler } from "./type/type";
 
 export class TileFieldView {
   private _body: HTMLDivElement = document.querySelector(
     ".miner__body"
   ) as HTMLDivElement;
-  private _clickController: FieldEventHandler;
+  private _clickController = new FieldEventHandler(
+    this._body,
+    this.clickEventHandler.bind(this)
+  );
+  private _clickHandler: ClickTileHandler;
 
-  constructor(clickHandler: (data: Event) => void) {
-    this._clickController = new FieldEventHandler(this._body, clickHandler);
+  constructor(clickHandler: ClickTileHandler) {
+    this._clickHandler = clickHandler;
+  }
+
+  private clickEventHandler(e: Event): void {
+    const eventData = getEventData(e);
+
+    this._clickHandler(eventData);
   }
 
   private fillCells(matrix: MatrixGenerateContent) {

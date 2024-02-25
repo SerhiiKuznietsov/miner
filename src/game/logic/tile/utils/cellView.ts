@@ -1,7 +1,7 @@
 import {
   StateNameType,
   StateNamesList,
-} from "../../../services/stateControllers/states/type/type";
+} from "../../../services/stateControllers/type/type";
 
 const stateToView: Record<StateNameType, Function> = {
   [StateNamesList.aroundState]: (around: number = 0): string => `type${around}`,

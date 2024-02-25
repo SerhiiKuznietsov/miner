@@ -1,4 +1,5 @@
-import { getDatasetWithElement } from "./dataset";
+import { ClickTileData } from "../type/type";
+import { getDatasetWithElement, getIdWithDataset } from "./dataset";
 
 const getTargetElement = (e: Event): HTMLElement => {
   const target = <HTMLElement>e.target;
@@ -10,22 +11,19 @@ const getTargetElement = (e: Event): HTMLElement => {
   return target;
 };
 
-const getDatasetWithEventTarget = (e: Event): DOMStringMap => {
+const getIdWithTarget = (e: Event): string => {
   const target = getTargetElement(e);
   const dataset = getDatasetWithElement(target);
 
-  return dataset;
+  return getIdWithDataset(dataset);
 };
 
-const getDatasetId = (dataset: DOMStringMap): string => {
-  if (!dataset.id) {
-    throw new Error(`Element dataset attr with name "id" not found`);
-  }
-  return dataset.id;
-};
+export const getEventData = (e: Event): ClickTileData => {
+  const id = getIdWithTarget(e);
+  e;
 
-export const getAttrsWithEvent = (e: Event): string => {
-  const dataset = getDatasetWithEventTarget(e);
-
-  return getDatasetId(dataset);
+  return {
+    id,
+    eventType: e.type,
+  };
 };

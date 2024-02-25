@@ -1,28 +1,28 @@
-import { ActionName, ActionNamesList } from "../../actions/actions";
 import { Config } from "../../config/game";
 import { Vector2 } from "../../geometry/vector2";
 import { spawnTileMatrix } from "./matrix/matrix";
 import {
+  ActionName,
+  ActionNamesList,
   GameAction,
   StateNamesList,
-} from "../../services/stateControllers/states/type/type";
+} from "../../services/stateControllers/type/type";
 import { createId, parseId } from "../../utils/id";
 import { Tile } from "./tile";
-import { getAttrsWithEvent } from "./utils/click";
 import { gameStateObserver } from "../../services/observable/gameState";
 import { TileFieldView } from "./tileFieldView";
 import { MatrixGenerateContent } from "./matrix/type/type";
+import { ClickTileData, FirstClickType } from "./type/type";
 
 export class TileManager {
   private _tiles = new Map<string, Tile>();
   private _config: Config;
-  private _firstClick: Vector2 | undefined;
+  private _firstClick: FirstClickType;
   private _calculatedTiles = new Set<string>();
-  private _view: TileFieldView;
+  private _view = new TileFieldView(this.updateTile.bind(this));
 
   constructor(config: Config) {
     this._config = config;
-    this._view = new TileFieldView(this.clickHandler.bind(this));
   }
 
   private get(id: string): Tile {
@@ -35,8 +35,8 @@ export class TileManager {
     return tile;
   }
 
-  private clickHandler(e: Event): void {
-    const id = getAttrsWithEvent(e);
+  private updateTile(data: ClickTileData): void {
+    const { id, eventType } = data;
 
     if (!this._firstClick) {
       const [x, y] = parseId(id);
@@ -47,7 +47,7 @@ export class TileManager {
     }
 
     const actionName: ActionName =
-      e.type === "click"
+      eventType === "click"
         ? ActionNamesList.leftClick
         : ActionNamesList.rightClick;
 

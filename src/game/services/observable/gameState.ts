@@ -1,4 +1,4 @@
-import { GameActionNameType } from "../stateControllers/states/type/type";
+import { GameActionNameType } from "../stateControllers/type/type";
 import { Observable } from "./observable";
 
 

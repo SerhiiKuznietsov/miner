@@ -4,7 +4,7 @@ import { tileStateObservable, TileDataType } from "../services/observable/tileSt
 import {
   StateNamesList,
   GameAction,
-} from "../services/stateControllers/states/type/type";
+} from "../services/stateControllers/type/type";
 
 export class LossManager implements IInterfaceObject {
   constructor() {

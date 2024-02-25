@@ -1,4 +1,4 @@
-import { GameStateType } from "../stateControllers/states/type/type";
+import { GameStateType } from "../stateControllers/type/type";
 import { Observable } from "./observable";
 
 class GameObserver extends Observable<GameStateType> {}

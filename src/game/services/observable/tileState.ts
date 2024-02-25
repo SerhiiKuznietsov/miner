@@ -1,4 +1,4 @@
-import { StateNameType } from "../stateControllers/states/type/type";
+import { StateNameType } from "../stateControllers/type/type";
 import { Observable } from "./observable";
 
 export type TileDataType = {

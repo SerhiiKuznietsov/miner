@@ -1,6 +1,9 @@
-import { ActionName } from "../../actions/actions";
-import { TileStateController } from "../../services/stateControllers/tileStateController/tileStateController";
-import { TileDataType, tileStateObservable } from "../../services/observable/tileState";
+import { TileStateController } from "./tailState/tileStateController/tileStateController";
+import {
+  TileDataType,
+  tileStateObservable,
+} from "../../services/observable/tileState";
+import { ActionName } from "../../services/stateControllers/type/type";
 
 export class Tile {
   private _stateController: TileStateController;
@@ -18,7 +21,7 @@ export class Tile {
   }
 
   public useAction(actionName: ActionName): TileDataType | undefined {
-    const prevState = this._stateController.getActive().name;
+    const prevState = this._stateController.getActiveStateName();
 
     const newState = this._stateController.changeByAction(actionName);
 

@@ -2,7 +2,7 @@ import { gameObserver } from "./services/observable/gameEvent";
 import {
   GameStateList,
   GameStateType,
-} from "./services/stateControllers/states/type/type";
+} from "./services/stateControllers/type/type";
 
 export interface IInterfaceObject {
   [GameStateList.start]?(): void;
@@ -45,7 +45,9 @@ export class GameLogic {
   }
 
   public init(): void {
-    const restartFunctionList = this._interactionList.get(GameStateList.restart);
+    const restartFunctionList = this._interactionList.get(
+      GameStateList.restart
+    );
 
     restartFunctionList?.forEach((instance: any) => instance.restart());
   }
