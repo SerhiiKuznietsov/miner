@@ -1,13 +1,13 @@
 import { StateNameType } from "../stateControllers/states/type/type";
 import { Observable } from "./observable";
 
-export type TailDataType = {
+export type TileDataType = {
   newState: StateNameType;
   prevState: StateNameType;
   id: string;
   around: number | undefined;
 };
 
-class TailStateObservable extends Observable<TailDataType> {}
+class TileStateObservable extends Observable<TileDataType> {}
 
-export const tailStateObservable = new TailStateObservable();
+export const tileStateObservable = new TileStateObservable();

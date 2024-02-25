@@ -1,24 +1,23 @@
 import { ActionName, ActionNamesList } from "../../actions/actions";
 import { Config } from "../../config/game";
 import { Vector2 } from "../../geometry/vector2";
-import { spawnTailMatrix } from "./matrix/matrix";
+import { spawnTileMatrix } from "./matrix/matrix";
 import {
   GameAction,
   StateNamesList,
 } from "../../stateControllers/states/type/type";
 import { createId, parseId } from "../../utils/id";
-import { Tail } from "./tail";
-import { ClickEvent, ClickEventObserverDataType } from "./type/type";
+import { Tile } from "./tile";
 import { getAttrsWithEvent } from "./utils/click";
 import { gameStateObserver } from "../../observable/gameState";
-import { FieldView } from "../field/fieldView";
+import { FieldView } from "./tileFieldView";
 import { MatrixGenerateContent } from "./matrix/type/type";
 
-export class TailManager {
-  private _tails = new Map<string, Tail>();
+export class TileManager {
+  private _tiles = new Map<string, Tile>();
   private _config: Config;
   private _firstClick: Vector2 | undefined;
-  private _calculatedTails = new Set<string>();
+  private _calculatedTiles = new Set<string>();
   private _view: FieldView;
 
   constructor(config: Config) {
@@ -26,19 +25,17 @@ export class TailManager {
     this._view = new FieldView(this._config, this.clickHandler.bind(this));
   }
 
-  private get(id: string): Tail {
-    const tail = this._tails.get(id);
+  private get(id: string): Tile {
+    const tile = this._tiles.get(id);
 
-    if (!tail) {
-      throw new Error(`Tail with id: ${id} not found`);
+    if (!tile) {
+      throw new Error(`Tile with id: ${id} not found`);
     }
 
-    return tail;
+    return tile;
   }
 
-  private clickHandler(data: ClickEventObserverDataType): void {
-    const [eventName, e] = data;
-
+  private clickHandler(e: Event): void {
     const id = getAttrsWithEvent(e);
 
     if (!this._firstClick) {
@@ -50,7 +47,7 @@ export class TailManager {
     }
 
     const actionName: ActionName =
-      eventName === ClickEvent.left
+      e.type === "click"
         ? ActionNamesList.leftClick
         : ActionNamesList.rightClick;
 
@@ -58,21 +55,21 @@ export class TailManager {
   }
 
   private clear(): void {
-    this._tails.clear();
-    this._calculatedTails.clear();
+    this._tiles.clear();
+    this._calculatedTiles.clear();
     this._firstClick = undefined;
   }
 
-  private createTails(): MatrixGenerateContent {
-    const tailMatrix = spawnTailMatrix(this._config, this._firstClick);
+  private createTiles(): MatrixGenerateContent {
+    const tileMatrix = spawnTileMatrix(this._config, this._firstClick);
 
-    tailMatrix.forEach((tailMatrixItem) => {
-      const { id, state, around } = tailMatrixItem;
+    tileMatrix.forEach((tileMatrixItem) => {
+      const { id, state, around } = tileMatrixItem;
 
-      this._tails.set(id, new Tail(state, id, around));
+      this._tiles.set(id, new Tile(state, id, around));
     });
 
-    return tailMatrix;
+    return tileMatrix;
   }
 
   private openAround(id: string): void {
@@ -96,12 +93,12 @@ export class TailManager {
   }
 
   public start(): void {
-    this.createTails();
+    this.createTiles();
   }
 
   public restart(): void {
     this.clear();
-    const matrix = this.createTails();
+    const matrix = this.createTiles();
     this._view.restart(matrix);
   }
 
@@ -111,16 +108,20 @@ export class TailManager {
 
   public useActionById(id: string, actionName: ActionName): void {
     if (actionName === ActionNamesList.calc) {
-      if (!this._calculatedTails.has(id)) {
-        this._calculatedTails.add(id);
+      if (!this._calculatedTiles.has(id)) {
+        this._calculatedTiles.add(id);
       } else {
         return;
       }
     }
 
-    const newState = this.get(id).useAction(actionName);
+    const stateData = this.get(id).useAction(actionName);
 
-    if (!newState || newState !== StateNamesList.emptyState) return;
+    if (!stateData) return;
+
+    this._view.update(stateData);
+
+    if (stateData.newState !== StateNamesList.emptyState) return;
 
     this.openAround(id);
   }

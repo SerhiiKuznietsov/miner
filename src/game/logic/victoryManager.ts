@@ -1,7 +1,7 @@
 import { Config } from "../config/game";
 import { IInterfaceObject } from "../gameLogic";
 import { gameStateObserver } from "../observable/gameState";
-import { tailStateObservable, TailDataType } from "../observable/tailState";
+import { tileStateObservable, TileDataType } from "../observable/tileState";
 import {
   StateNamesList,
   GameAction,
@@ -14,10 +14,10 @@ export class VictoryManager implements IInterfaceObject {
   constructor(config: Config) {
     this._config = config;
 
-    tailStateObservable.attach(this.observerHandler.bind(this));
+    tileStateObservable.attach(this.observerHandler.bind(this));
   }
 
-  private observerHandler(data: TailDataType): void {
+  private observerHandler(data: TileDataType): void {
     const { newState } = data;
 
     if (

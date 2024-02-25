@@ -1,6 +1,6 @@
 import { Config } from "../../config/game";
 import { IInterfaceObject } from "../../gameLogic";
-import { TailDataType, tailStateObservable } from "../../observable/tailState";
+import { TileDataType, tileStateObservable } from "../../observable/tileState";
 import { StateNamesList } from "../../stateControllers/states/type/type";
 import { Counter } from "./counter";
 import { CounterView } from "./counterView";
@@ -14,10 +14,10 @@ export class CounterManager implements IInterfaceObject {
       config.minesCount,
       this._counterView.update.bind(this._counterView)
     );
-    tailStateObservable.attach(this.observerHandler.bind(this));
+    tileStateObservable.attach(this.observerHandler.bind(this));
   }
 
-  private observerHandler(data: TailDataType) {
+  private observerHandler(data: TileDataType) {
     const { newState, prevState } = data;
 
     if (newState === StateNamesList.flagState) {

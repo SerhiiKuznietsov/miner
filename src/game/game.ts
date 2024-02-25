@@ -1,5 +1,5 @@
 import { Config } from "./config/game";
-import { TailManager } from "./logic/tail/tail-manager";
+import { TileManager } from "./logic/tile/tileManager";
 import { FaceView } from "./logic/faceView";
 import { TimerManager } from "./logic/timer/timerManager";
 import {
@@ -45,7 +45,7 @@ export class Game {
       .add(new FaceView())
       .add(new VictoryManager(this._config))
       .add(new LossManager())
-      .add(new TailManager(this._config))
+      .add(new TileManager(this._config))
       .add(new CounterManager(this._config))
       .add(new TimerManager())
       .init();

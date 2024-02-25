@@ -1,5 +1,5 @@
 import { Config } from "../../../../config/game";
-import { getListItem } from "../matrix-list";
+import { getListItem } from "../matrixList";
 import { MatrixList } from "../type/type";
 
 export const useMatrixMineAroundEnricher = (

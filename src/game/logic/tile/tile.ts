@@ -1,15 +1,14 @@
 import { ActionName } from "../../actions/actions";
-import { TailStateController } from "../../stateControllers/tailStateController/tailStateController";
-import { tailStateObservable } from "../../observable/tailState";
-import { StateNameType } from "../../stateControllers/states/type/type";
+import { TileStateController } from "../../stateControllers/tileStateController/tileStateController";
+import { TileDataType, tileStateObservable } from "../../observable/tileState";
 
-export class Tail {
-  private _stateController: TailStateController;
+export class Tile {
+  private _stateController: TileStateController;
   private _id: string;
   private _around: number = 0;
 
   constructor(
-    stateController: TailStateController,
+    stateController: TileStateController,
     id: string,
     around: number
   ) {
@@ -18,20 +17,22 @@ export class Tail {
     this._around = around;
   }
 
-  useAction(actionName: ActionName): StateNameType | undefined {
+  public useAction(actionName: ActionName): TileDataType | undefined {
     const prevState = this._stateController.getActive().name;
 
     const newState = this._stateController.changeByAction(actionName);
 
     if (!newState) return;
 
-    tailStateObservable.notify({
+    const result = {
       newState,
       prevState,
       id: this._id,
       around: this._around,
-    });
+    };
 
-    return newState;
+    tileStateObservable.notify(result);
+
+    return result;
   }
 }

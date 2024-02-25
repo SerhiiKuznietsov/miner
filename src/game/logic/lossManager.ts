@@ -1,6 +1,6 @@
 import { IInterfaceObject } from "../gameLogic";
 import { gameStateObserver } from "../observable/gameState";
-import { tailStateObservable, TailDataType } from "../observable/tailState";
+import { tileStateObservable, TileDataType } from "../observable/tileState";
 import {
   StateNamesList,
   GameAction,
@@ -8,10 +8,10 @@ import {
 
 export class LossManager implements IInterfaceObject {
   constructor() {
-    tailStateObservable.attach(this.observerHandler.bind(this));
+    tileStateObservable.attach(this.observerHandler.bind(this));
   }
 
-  private observerHandler(data: TailDataType): void {
+  private observerHandler(data: TileDataType): void {
     const { newState } = data;
 
     if (newState !== StateNamesList.redMineState) return;

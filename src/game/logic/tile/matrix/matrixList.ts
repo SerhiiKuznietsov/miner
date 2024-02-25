@@ -1,8 +1,8 @@
 import { Config } from "../../../config/game";
 import { Vector2 } from "../../../geometry/vector2";
 import { createId } from "../../../utils/id";
-import { useMatrixEnricher } from "./matrix-enrichers";
-import { MatrixItem } from "./matrix-item";
+import { useMatrixEnricher } from "./matrixEnrichers";
+import { MatrixItem } from "./matrixItem";
 import { MatrixList } from "./type/type";
 
 export const createMatrixList = (

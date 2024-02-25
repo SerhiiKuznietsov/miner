@@ -1,10 +1,10 @@
 import { Config } from "../../../config/game";
 import { Vector2 } from "../../../geometry/vector2";
-import { createMatrixList } from "./matrix-list";
-import { createTailStateByMatrix } from "./matrix-tail-state";
+import { createMatrixList } from "./matrixList";
+import { createTileStateByMatrix } from "./matrixTileState";
 import { MatrixGenerateContent } from "./type/type";
 
-export const spawnTailMatrix = (
+export const spawnTileMatrix = (
   config: Config,
   firsClick?: Vector2
 ): MatrixGenerateContent => {
@@ -13,7 +13,7 @@ export const spawnTailMatrix = (
   const result: MatrixGenerateContent = [];
 
   list.forEach((matrixItem) => {
-    const state = createTailStateByMatrix(matrixItem);
+    const state = createTileStateByMatrix(matrixItem);
 
     result.push({ ...matrixItem, state, size: config.tileSize });
   });
