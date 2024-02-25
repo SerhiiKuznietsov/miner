@@ -14,6 +14,7 @@ import { GameLogic } from "./gameLogic";
 import { GameStateController } from "./services/stateControllers/gameStateController";
 import { LossManager } from "./logic/lossManager";
 import { VictoryManager } from "./logic/victoryManager";
+import { FieldSizeManager } from "./logic/fieldSizeManager";
 
 export class Game {
   private _config = new Config();
@@ -42,6 +43,7 @@ export class Game {
     gameStateObserver.attach(this.observerHandler.bind(this));
 
     this._gameLogic
+      .add(new FieldSizeManager(this._config))
       .add(new FaceView())
       .add(new VictoryManager(this._config))
       .add(new LossManager())
