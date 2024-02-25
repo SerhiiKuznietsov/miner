@@ -33,19 +33,38 @@ body {
   margin: auto;
 }
 
-.miner__face > span {
-  display: block;
+.miner__face > div {
   width: 40px;
   height: 40px;
-  background: url("../img/face_unpressed.svg") no-repeat;
   background-size: 100%;
   margin: auto;
+  background-repeat: no-repeat;
 }
 
 .miner__count,
 .miner__face,
 .miner__timer {
   flex: 1 1 30.33333%;
+}
+
+[data-img="face_active"] {
+  background: url("../img/face/face_active.svg");
+}
+
+[data-img="face_lose"] {
+  background: url("../img/face/face_lose.svg");
+}
+
+[data-img="face_pressed"] {
+  background: url("../img/face/face_pressed.svg");
+}
+
+[data-img="face_unpressed"] {
+  background: url("../img/face/face_unpressed.svg");
+}
+
+[data-img="face_win"] {
+  background: url("../img/face/face_win.svg");
 }
 
 .miner__count > span,
@@ -62,7 +81,7 @@ body {
 }
 
 .miner__face span:active {
-  background: url("../img/face_pressed.svg");
+  background-image: url("../img/face/face_pressed.svg");
   background-size: 100%;
 }
 
@@ -74,6 +93,63 @@ body {
 
 .miner__cube {
   background-color: #c0c0c0;
-  background: url("../img/closed.svg");
+  background-image: url("../img/cell/closed.svg");
   background-size: 100%;
+  background-repeat: no-repeat;
+}
+
+.miner__cube[data-img="mine_wrong"] {
+  background-image: url("../img/cell/mine_wrong.svg");
+}
+
+.miner__cube[data-img="mine_red"] {
+  background-image: url("../img/cell/mine_red.svg");
+}
+
+.miner__cube[data-img="mine"] {
+  background-image: url("../img/cell/mine.svg");
+}
+
+.miner__cube[data-img="flag"] {
+  background-image: url("../img/cell/flag.svg");
+}
+
+.miner__cube[data-img="closed"] {
+  background-image: url("../img/cell/closed.svg");
+}
+
+.miner__cube[data-img="type0"] {
+  background-image: url("../img/cell/type0.svg");
+}
+
+.miner__cube[data-img="type1"] {
+  background-image: url("../img/cell/type1.svg");
+}
+
+.miner__cube[data-img="type2"] {
+  background-image: url("../img/cell/type2.svg");
+}
+
+.miner__cube[data-img="type3"] {
+  background-image: url("../img/cell/type3.svg");
+}
+
+.miner__cube[data-img="type4"] {
+  background-image: url("../img/cell/type4.svg");
+}
+
+.miner__cube[data-img="type5"] {
+  background-image: url("../img/cell/type5.svg");
+}
+
+.miner__cube[data-img="type6"] {
+  background-image: url("../img/cell/type6.svg");
+}
+
+.miner__cube[data-img="type7"] {
+  background-image: url("../img/cell/type7.svg");
+}
+
+.miner__cube[data-img="type8"] {
+  background-image: url("../img/cell/type8.svg");
 }

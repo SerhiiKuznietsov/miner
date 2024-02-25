@@ -1,19 +1,18 @@
 import { IInterfaceObject } from "../gameLogic";
 import { gameStateObserver } from "../observable/gameState";
 import { GameAction } from "../stateControllers/states/type/type";
-import { FaceView } from "../screen/view/face";
 
 
 // TODO - put mouse handler code from here
 export class Face implements IInterfaceObject {
   private _element: HTMLSpanElement = document.querySelector(
-    ".miner__face span"
+    ".miner__face div"
   ) as HTMLSpanElement;
   private _handler = this.mouseDownHandler.bind(this);
 
   private mouseDownHandler(): void {
     this.offHandlers();
-    FaceView.setPressed(this._element);
+    this._element.setAttribute("data-img", "face_pressed");
     this.onHandlers();
   }
 
@@ -46,14 +45,14 @@ export class Face implements IInterfaceObject {
   }
 
   public win(): void {
-    FaceView.setWin(this._element);
+    this._element.setAttribute("data-img", "face_win");
   }
 
   public lose(): void {
-    FaceView.setLose(this._element);
+    this._element.setAttribute("data-img", "face_lose");
   }
 
   private setUnpressed(): void {
-    FaceView.setUnpressed(this._element);
+    this._element.setAttribute("data-img", "face_unpressed");
   }
 }
