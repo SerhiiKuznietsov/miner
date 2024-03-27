@@ -1,4 +1,4 @@
-import { Vector2 } from "../../../geometry/vector2";
+import { Vector2 } from "../../../utils/vector2";
 
 export class MatrixItem {
   public readonly position: Vector2;

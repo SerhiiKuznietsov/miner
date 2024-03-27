@@ -1,5 +1,5 @@
 import { Config } from "../../../config/game";
-import { Vector2 } from "../../../geometry/vector2";
+import { Vector2 } from "../../../utils/vector2";
 import { createId } from "../../../utils/id";
 import { useMatrixEnricher } from "./matrixEnrichers";
 import { MatrixItem } from "./matrixItem";
