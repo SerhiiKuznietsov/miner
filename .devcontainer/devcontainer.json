@@ -24,7 +24,8 @@
         "wix.vscode-import-cost",
         "Gruntfuggly.todo-tree",
         "pflannery.vscode-versionlens",
-        "fractalbrew.backticks"
+        "fractalbrew.backticks",
+				"ms-vscode.vscode-typescript-next"
       ]
     }
   }
