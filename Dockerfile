@@ -11,4 +11,3 @@ ADD . .
 EXPOSE 5173
 
 CMD [ "npm", "run", "dev" ]
-# TODO - change the location of static files. For docker work
