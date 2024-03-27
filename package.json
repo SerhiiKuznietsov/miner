@@ -1,12 +1,27 @@
 {
-  "name": "vite-project",
-  "private": true,
-  "version": "0.0.0",
+  "name": "miner",
+  "version": "1.0.0",
+  "description": "Miner's Game. The main goal is to stick to the OOP style.",
+  "author": "Serhii Kuznietsov <sergeykyz19998@gmail.com>",
   "type": "module",
-  "engines" : {
-    "npm" : ">=10.0.0",
-    "node" : ">=20.0.0"
+  "engines": {
+    "npm": ">=8.6.0",
+    "node": ">=18.0.0"
   },
+  "keywords": [
+    "web",
+    "game",
+    "node",
+    "ts",
+    "typescript",
+    "vite",
+    "docker"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/SerhiiKuznietsov/miner.git"
+  },
+  "homepage": "https://github.com/SerhiiKuznietsov/miner.git#readme",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
