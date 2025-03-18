@@ -1,7 +1,10 @@
 import { Config } from "../config/game";
 import { IInterfaceObject } from "../gameLogic";
 import { gameStateObserver } from "../services/observable/gameState";
-import { tileStateObservable, TileDataType } from "../services/observable/tileState";
+import {
+  tileStateObservable,
+  TileDataType,
+} from "../services/observable/tileState";
 import {
   StateNamesList,
   GameAction,
@@ -9,11 +12,8 @@ import {
 
 export class VictoryManager implements IInterfaceObject {
   private _openField: number = 0;
-  private _config: Config;
 
-  constructor(config: Config) {
-    this._config = config;
-
+  constructor(private _config: Config) {
     tileStateObservable.attach(this.observerHandler.bind(this));
   }
 

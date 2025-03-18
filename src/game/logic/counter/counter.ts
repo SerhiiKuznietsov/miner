@@ -1,14 +1,12 @@
 import { DrawFunction } from "./type/type";
 
 export class Counter {
-  private _defaultValue: number;
   private _currentValue: number = 0;
-  private _updateHandler: DrawFunction;
 
-  constructor(defaultValue: number = 0, drawFunction: DrawFunction) {
-    this._defaultValue = defaultValue;
-    this._updateHandler = drawFunction;
-  }
+  constructor(
+    private _defaultValue: number = 0,
+    private _updateHandler: DrawFunction
+  ) {}
 
   private update(): void {
     this._updateHandler(this._currentValue);

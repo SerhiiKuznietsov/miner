@@ -3,10 +3,8 @@ import { StateList } from "./type/type";
 
 export class StateController<S, A> {
   private _state = new Map<S, State<S, A>>();
-  private _activeState: S;
 
-  constructor(defaultState: S, stateList: StateList<State<S, A>>) {
-    this._activeState = defaultState;
+  constructor(private _activeState: S, stateList: StateList<State<S, A>>) {
     stateList.forEach((state: State<S, A>) => {
       this._state.set(state.name, state);
     });

@@ -1,11 +1,9 @@
 import { ActionList } from "../type/type";
 
 export class State<S, A> {
-  public readonly name: S;
   protected _actions = new Map<A, S>();
 
-  constructor(name: S, list?: ActionList<A, S>) {
-    this.name = name;
+  constructor(public readonly name: S, list?: ActionList<A, S>) {
     this.addActionsList(list);
   }
 

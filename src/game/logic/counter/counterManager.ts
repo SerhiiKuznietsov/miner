@@ -1,12 +1,15 @@
 import { Config } from "../../config/game";
 import { IInterfaceObject } from "../../gameLogic";
-import { TileDataType, tileStateObservable } from "../../services/observable/tileState";
+import {
+  TileDataType,
+  tileStateObservable,
+} from "../../services/observable/tileState";
 import { StateNamesList } from "../../services/stateControllers/type/type";
 import { Counter } from "./counter";
 import { CounterView } from "./counterView";
 
 export class CounterManager implements IInterfaceObject {
-  private _counterView = new CounterView()
+  private _counterView = new CounterView();
   private _counter: Counter;
 
   constructor(config: Config) {

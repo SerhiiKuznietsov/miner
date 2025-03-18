@@ -2,13 +2,11 @@ import { Config } from "../config/game";
 import { convertSizeToPx } from "./tile/utils/px";
 
 export class FieldSizeManager {
-  private _config: Config;
   private _element: HTMLDivElement = document.querySelector(
     ".miner"
   ) as HTMLDivElement;
 
-  constructor(config: Config) {
-    this._config = config;
+  constructor(private _config: Config) {
     this.resize();
   }
 

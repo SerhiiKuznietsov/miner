@@ -16,14 +16,11 @@ import { ClickTileData, FirstClickType } from "./type/type";
 
 export class TileManager {
   private _tiles = new Map<string, Tile>();
-  private _config: Config;
   private _firstClick: FirstClickType;
   private _calculatedTiles = new Set<string>();
   private _view = new TileFieldView(this.updateTile.bind(this));
 
-  constructor(config: Config) {
-    this._config = config;
-  }
+  constructor(private _config: Config) {}
 
   private get(id: string): Tile {
     const tile = this._tiles.get(id);

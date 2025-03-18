@@ -1,6 +1,9 @@
 import { TileStateController } from "./tileStateController";
 import { TileState } from "../tileState";
-import { ActionNamesList, StateNamesList } from "../../../../services/stateControllers/type/type";
+import {
+  ActionNamesList,
+  StateNamesList,
+} from "../../../../services/stateControllers/type/type";
 
 export class AroundTileStateController extends TileStateController {
   constructor() {

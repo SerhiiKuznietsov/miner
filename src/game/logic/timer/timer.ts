@@ -2,11 +2,8 @@ type DrawFunction = (data: string) => void;
 export class Timer {
   private _startTime = Date.now();
   private _loopTimer: any;
-  private _updateHandler: DrawFunction;
 
-  constructor(drawFunction: DrawFunction) {
-    this._updateHandler = drawFunction;
-  }
+  constructor(private _updateHandler: DrawFunction) {}
 
   private calcTime() {
     const currentTime = Math.floor((Date.now() - this._startTime) / 1000);

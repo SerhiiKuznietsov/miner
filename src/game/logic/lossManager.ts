@@ -1,6 +1,9 @@
 import { IInterfaceObject } from "../gameLogic";
 import { gameStateObserver } from "../services/observable/gameState";
-import { tileStateObservable, TileDataType } from "../services/observable/tileState";
+import {
+  tileStateObservable,
+  TileDataType,
+} from "../services/observable/tileState";
 import {
   StateNamesList,
   GameAction,
@@ -19,7 +22,5 @@ export class LossManager implements IInterfaceObject {
     gameStateObserver.notify(GameAction.toLose);
   }
 
-  restart() {
-
-  }
+  restart() {}
 }
